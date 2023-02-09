@@ -8,25 +8,41 @@
 import Foundation
 
 struct User {
-    var name: String
-    var city: String
-    var about: String
-    var joinedClubs: Array<Club>
-    var requestedClubs: Array<Club>
-    var numHostedMeets: Int
-    var numJoinedMeets: Int
+    private var id: String? = UUID().uuidString
+    private var name: String
+    private var city: String
+    private var about: String
+    private var joinedClubs: Array<Club>
+    private var requestedClubs: Array<Club>
+    private var numHostedMeets: Int
+    private var numJoinedMeets: Int
+    private var scheduledMeetUps: Array<MeetUp>
     
-    init(name: String, city: String) {
+    init(id: String = UUID().uuidString, name: String, city: String) {
+        self.id = id
         self.name = name
         self.city = city
         self.about = ""
         self.joinedClubs = []
         self.requestedClubs = []
+        self.scheduledMeetUps = []
         self.numHostedMeets = 0
         self.numJoinedMeets = 0
     }
     
     //METHODS==========================
+    
+    //MODIFIES: this
+    //EFFECTS: remove meet up from scheduled
+    mutating func removeMeetUp(mu: MeetUp) {
+        self.scheduledMeetUps.removeAll{$0.getID() == mu.getID()}
+    }
+    
+    //MODIFIES: this
+    //EFFECTS: add meet up to scheduled
+    mutating func addMeetUp(mu: MeetUp) {
+        self.scheduledMeetUps.append(mu)
+    }
     
     //REQUIRES: club in joinRequests
     //MODIFIES: this
@@ -56,16 +72,18 @@ struct User {
     //MODIFIES: this
     //EFFECTS: increment number of meet ups hosted
     mutating func addToMeetUpHosted() {
-        
+        self.numHostedMeets += 1
     }
     
     //MODIFIES: this
     //EFFECTS: increment number of meet ups joined
     mutating func addToMeetUpsJoined() {
-        
+        self.numJoinedMeets += 1
     }
     
     //GETTERS==========================
+    func getID() -> String { return self.id! }
+    
     func getName() -> String { return self.name }
     
     func getCity() -> String { return self.city }
@@ -79,6 +97,8 @@ struct User {
     func getNumHostedMeets() -> Int { return self.numHostedMeets }
     
     func getNumJoinedMeets() -> Int { return self.numJoinedMeets }
+    
+    func getScheduledMeetUps() -> Array<MeetUp> { return self.scheduledMeetUps }
     
     //SETTERS=====================================
     mutating func setName(name: String) { self.name = name }
@@ -94,4 +114,6 @@ struct User {
     mutating func setNumHostedMeets(num: Int) { self.numHostedMeets = num }
     
     mutating func setNumJoinedMeets(num: Int) { self.numJoinedMeets = num }
+    
+    mutating func setScheduledMeetUps(meetups: Array<MeetUp>) { self.scheduledMeetUps = meetups }
 }

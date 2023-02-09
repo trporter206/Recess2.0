@@ -37,5 +37,21 @@ final class UserTests: XCTestCase {
         p2.removeClubRequest(club: club)
         XCTAssertEqual(0, p2.getRequestedClubs().count)
     }
+    
+    func testAddToMeetUpHosted() {
+        XCTAssertEqual(0, p1.getNumHostedMeets())
+        p1.addToMeetUpHosted()
+        XCTAssertEqual(1, p1.getNumHostedMeets())
+        p1.addToMeetUpHosted()
+        XCTAssertEqual(2, p1.getNumHostedMeets())
+    }
+    
+    func testAddtoMeetUpsJoined() {
+        XCTAssertEqual(0, p1.getNumJoinedMeets())
+        p1.addToMeetUpsJoined()
+        XCTAssertEqual(1, p1.getNumJoinedMeets())
+        p1.addToMeetUpsJoined()
+        XCTAssertEqual(2, p1.getNumJoinedMeets())
+    }
 
 }
