@@ -11,18 +11,26 @@ struct ClubList: View {
     @ObservedObject var dataManager: DataManager
     
     var body: some View {
-        VStack {
-            Text("Number of clubs: \(dataManager.clubs.count)")
-            ForEach(dataManager.clubs) { club in
-                Text(club.getName())
+        NavigationView {
+            VStack {
+                Text("Number of clubs: \(dataManager.clubs.count)").bold().padding()
+                ForEach(dataManager.clubs) { club in
+                    NavigationLink(destination: ClubDetail(dataManager: dataManager, club: club), label: {
+                        Text(club.getName()).foregroundColor(.black)
+                    })
+                }
+                Button(action: {
+                    let c = Club(creator: dataManager.currentUser,
+                                 name: "Pick up league",
+                                 description: "Pick up ballers",
+                                 privateClub: false,
+                                 preReqsNeeded: false,
+                                 preReqs: "")
+                    dataManager.clubs.append(c)
+                }, label: {
+                    Text("Create Club").padding()
+                })
             }
-            Button(action: {
-                let u = User(name: "Torri", city: "Seattle")
-                let c = Club(creator: u, name: "Pick up league", description: "Pick up ballers", privateClub: false, preReqsNeeded: false, preReqs: "")
-                dataManager.clubs.append(c)
-            }, label: {
-                Text("Create Club")
-            })
         }
     }
 }

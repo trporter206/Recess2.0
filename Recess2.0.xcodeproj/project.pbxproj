@@ -19,6 +19,7 @@
 		D738ABC52992DF2300D6024E /* MeetUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738ABC42992DF2300D6024E /* MeetUp.swift */; };
 		D738ABD62993531E00D6024E /* ClubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738ABD52993531E00D6024E /* ClubTests.swift */; };
 		D738ABDA29938F2200D6024E /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738ABD929938F2200D6024E /* UserTests.swift */; };
+		D797F5C42995F71F005F6E0B /* ClubDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D797F5C32995F71F005F6E0B /* ClubDetail.swift */; };
 		D7CD03BC2994AC0B0030A394 /* MeetUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD03BB2994AC0B0030A394 /* MeetUpTests.swift */; };
 		D7CD03BE2995B8690030A394 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD03BD2995B8690030A394 /* DataManager.swift */; };
 		D7CD03C12995BD620030A394 /* ClubList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD03C02995BD620030A394 /* ClubList.swift */; };
@@ -66,6 +67,7 @@
 		D738ABCC29934E0100D6024E /* ClubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D738ABD52993531E00D6024E /* ClubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubTests.swift; sourceTree = "<group>"; };
 		D738ABD929938F2200D6024E /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
+		D797F5C32995F71F005F6E0B /* ClubDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetail.swift; sourceTree = "<group>"; };
 		D7CD03BB2994AC0B0030A394 /* MeetUpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpTests.swift; sourceTree = "<group>"; };
 		D7CD03BD2995B8690030A394 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D7CD03C02995BD620030A394 /* ClubList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubList.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				D7CD03C02995BD620030A394 /* ClubList.swift */,
 				D7CD03C22995C1650030A394 /* CreateClubForm.swift */,
+				D797F5C32995F71F005F6E0B /* ClubDetail.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D797F5C42995F71F005F6E0B /* ClubDetail.swift in Sources */,
 				D738AB982992DC2D00D6024E /* ContentView.swift in Sources */,
 				D7CD03BE2995B8690030A394 /* DataManager.swift in Sources */,
 				D738ABC52992DF2300D6024E /* MeetUp.swift in Sources */,

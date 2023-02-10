@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//TODO convert to club.data object to remove params
 struct CreateClubForm: View {
     @ObservedObject var dataManager: DataManager
     @Binding var nameString: String
@@ -22,12 +22,16 @@ struct CreateClubForm: View {
             TextField("Club Description", text: $descString).padding()
             Toggle("Pre-reqs needed to join", isOn: $preReqsNeeded).toggleStyle(.switch).padding()
             if preReqsNeeded {
-                TextField("Pre-reqs", text: $preReqs)
+                TextField("Pre-reqs", text: $preReqs).padding()
             }
             Toggle("Club is private", isOn: $privateClub).toggleStyle(.switch).padding()
             Button(action: {
-                let u = User(name: "Torri", city: "Seattle")
-                let c = Club(creator: u, name: nameString, description: descString, privateClub: privateClub, preReqsNeeded: preReqsNeeded, preReqs: preReqs)
+                let c = Club(creator: dataManager.currentUser,
+                             name: nameString,
+                             description: descString,
+                             privateClub: privateClub,
+                             preReqsNeeded: preReqsNeeded,
+                             preReqs: preReqs)
                 dataManager.clubs.append(c)
             }, label: {
                 Text("Create club")
