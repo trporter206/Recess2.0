@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Club {
-    private var id: String? = UUID().uuidString
+struct Club: Identifiable {
+    var id: String? = UUID().uuidString
     private var creator: User
     private var name: String
     private var description: String
@@ -19,13 +19,13 @@ struct Club {
     private var requests: Array<User>
     private var scheduledGames: Array<MeetUp>
     
-    init(id: String = UUID().uuidString, creator: User, name: String, description: String, privateClub: Bool) {
+    init(id: String = UUID().uuidString, creator: User, name: String, description: String, privateClub: Bool, preReqsNeeded: Bool, preReqs: String) {
         self.id = id
         self.creator = creator
         self.name = name
         self.description = description
-        self.preReqs = ""
-        self.preReqsNeeded = false
+        self.preReqs = preReqs
+        self.preReqsNeeded = preReqsNeeded
         self.privateClub = privateClub
         self.members = [creator]
         self.requests = []

@@ -35,7 +35,7 @@ struct User {
     //MODIFIES: this
     //EFFECTS: remove meet up from scheduled
     mutating func removeMeetUp(mu: MeetUp) {
-        self.scheduledMeetUps.removeAll{$0.getID() == mu.getID()}
+        self.scheduledMeetUps.removeAll{$0 == mu}
     }
     
     //MODIFIES: this

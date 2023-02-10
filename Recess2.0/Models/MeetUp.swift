@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MeetUp {
+struct MeetUp: Equatable {
     private var id: String? = UUID().uuidString
     private var host: User
     private var sport: String
@@ -39,6 +39,11 @@ struct MeetUp {
     //EFFECTS: removes user from players
     mutating func removePlayer(user: User) {
         self.players.removeAll{ $0.getID() == user.getID() }
+    }
+    
+    //EFFECTS: for equatability
+    static func == (lhs: MeetUp, rhs: MeetUp) -> Bool {
+            return lhs.id == rhs.id
     }
     
     //GETTERS==================================
