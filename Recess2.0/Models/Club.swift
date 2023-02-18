@@ -61,6 +61,30 @@ struct Club: Identifiable {
         self.requests.append(user)
     }
     
+    //MODIFIES: this
+    //EFFECTS: remove player request
+    mutating func removeRequest(user: User) throws {
+        if !self.requests.contains(where: {$0.getID() == user.getID()}) {
+            throw RecessExceptions.userNotFound
+        }
+        self.requests.removeAll(where: {$0.getID() == user.getID()})
+    }
+    
+    //MODIFIES: this
+    //EFFECTS: add new meet up to scheduled
+    mutating func addMeetUp(meetUp: MeetUp) {
+        self.scheduledGames.append(meetUp)
+    }
+    
+    //MODIFIES: this
+    //EFFECTS: remove meet up from scheduled
+    mutating func removeMeetUp(meetUp: MeetUp) throws {
+        if !self.scheduledGames.contains(where: {$0.getID() == meetUp.getID()}) {
+            throw RecessExceptions.meetUpNotFound
+        }
+        self.scheduledGames.removeAll(where: {$0.getID() == meetUp.getID()})
+    }
+    
     //SETTERS================================
     mutating func setCreator(creator: User) { self.creator = creator }
     
@@ -98,4 +122,34 @@ struct Club: Identifiable {
     func getRequests() -> Array<User> { return self.requests }
     
     func getScheduledGames() -> Array<MeetUp> { return self.scheduledGames }
+}
+
+extension Club {
+    struct Data {
+        var name: String = ""
+        var description: String = ""
+        var preReqs: String = ""
+        var preReqsNeeded: Bool = false
+        var privateClub: Bool = false
+    }
+    
+    mutating func update(from data: Data) {
+        name = data.name
+        description = data.description
+        preReqs = data.preReqs
+        preReqsNeeded = data.preReqsNeeded
+        privateClub = data.privateClub
+    }
+    
+    init(data: Data, dataManager: DataManager) {
+        creator = dataManager.currentUser
+        name = data.name
+        description = data.description
+        preReqs = data.preReqs
+        preReqsNeeded = data.preReqsNeeded
+        privateClub = data.privateClub
+        members = []
+        requests = []
+        scheduledGames = []
+    }
 }

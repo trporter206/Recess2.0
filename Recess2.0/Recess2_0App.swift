@@ -11,7 +11,7 @@ import SwiftUI
 struct Recess2_0App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ClubList(dataManager: DataManager())
         }
     }
 }

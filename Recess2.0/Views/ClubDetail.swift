@@ -16,7 +16,21 @@ struct ClubDetail: View {
             Text(club.getName())
                 .font(.title)
             Text(club.getDescription()).font(.subheadline)
-            Text("Created by \(club.getCreator().getName())").padding()
+            HStack {
+                Text("Creator: \(club.getCreator().getName())")
+                Spacer()
+                if club.getPrivateClub() {
+                    Text("Private Club")
+                } else {
+                    Text("Public Club")
+                }
+            }
+            .padding()
+            if club.getPreReqsNeeded() {
+                Text(club.getPreReqs()).padding()
+            } else {
+                Text("No pre-reqs needed").padding()
+            }
             Text("Members: \(club.getMembers().count)")
         }
     }

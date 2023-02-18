@@ -62,6 +62,27 @@ final class ClubTests: XCTestCase {
         club.newRequest(user: p2)
         XCTAssertEqual(1, club.getRequests().count)
     }
+    
+    func testRemoveRequest() {
+        XCTAssertEqual(0, club.getRequests().count)
+        club.newRequest(user: p2)
+        XCTAssertEqual(1, club.getRequests().count)
+        XCTAssertNoThrow(try club.removeRequest(user: p2), "userNotFound is not thrown in this case")
+        XCTAssertEqual(0, club.getRequests().count)
+    }
 
-
+    func testAddMeetUp() {
+        let mu = MeetUp(host: p1, sport: "test", about: "test", date: "test", gearNeeded: false)
+        XCTAssertEqual(0, club.getScheduledGames().count)
+        club.addMeetUp(meetUp: mu)
+        XCTAssertEqual(1, club.getScheduledGames().count)
+    }
+    
+    func testRemoveMeetUp() {
+        let mu = MeetUp(host: p1, sport: "test", about: "test", date: "test", gearNeeded: false)
+        XCTAssertEqual(0, club.getScheduledGames().count)
+        club.addMeetUp(meetUp: mu)
+        XCTAssertEqual(1, club.getScheduledGames().count)
+        XCTAssertNoThrow(try club.removeMeetUp(meetUp: mu), "meetUpNotFound is not thrown in this case")
+    }
 }

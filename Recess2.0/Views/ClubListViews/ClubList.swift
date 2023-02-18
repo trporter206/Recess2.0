@@ -15,19 +15,9 @@ struct ClubList: View {
             VStack {
                 Text("Number of clubs: \(dataManager.clubs.count)").bold().padding()
                 ForEach(dataManager.clubs) { club in
-                    NavigationLink(destination: ClubDetail(dataManager: dataManager, club: club), label: {
-                        Text(club.getName()).foregroundColor(.black)
-                    })
+                    ClubListItem(dataManager: dataManager, club: club)
                 }
-                Button(action: {
-                    let c = Club(creator: dataManager.currentUser,
-                                 name: "Pick up league",
-                                 description: "Pick up ballers",
-                                 privateClub: false,
-                                 preReqsNeeded: false,
-                                 preReqs: "")
-                    dataManager.clubs.append(c)
-                }, label: {
+                NavigationLink(destination: CreateClubForm(dataManager: dataManager), label: {
                     Text("Create Club").padding()
                 })
             }

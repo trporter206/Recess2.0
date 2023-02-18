@@ -14,9 +14,9 @@ class DataManager: ObservableObject {
     @Published var currentUser = User(name: "Torri Porter", city: "Vancouver")
     
     init() {
-        var u0 = User(name: "Torri Porter", city: "Vancouver")
-        var u1 = User(name: "Alison Parker", city: "Seattle")
-        var u2 = User(name: "John Smith", city: "Portland")
+        let u0 = User(name: "Torri Porter", city: "Vancouver")
+        let u1 = User(name: "Alison Parker", city: "Seattle")
+        let u2 = User(name: "John Smith", city: "Portland")
         var c0 = Club(creator: u0, name: "Sports Club", description: "Pick up games", privateClub: false, preReqsNeeded: false, preReqs: "")
         var c1 = Club(creator: u1, name: "Tennis Club", description: "classy tennis", privateClub: true, preReqsNeeded: false, preReqs: "")
         var c2 = Club(creator: u2, name: "Basketball Club", description: "street ball", privateClub: false, preReqsNeeded: true, preReqs: "email the creator")
@@ -29,9 +29,6 @@ class DataManager: ObservableObject {
         users.append(u0)
         users.append(u1)
         users.append(u2)
-        meetUps.append(m0)
-        meetUps.append(m1)
-        meetUps.append(m2)
     }
     
     
