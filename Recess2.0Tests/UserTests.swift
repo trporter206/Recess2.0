@@ -14,7 +14,7 @@ final class UserTests: XCTestCase {
 
     override func setUp() {
         p1 = User(name: "Torri Porter", city: "Vancouver")
-        club = Club(creator: p1, name: "Sport Club", description: "Test club", privateClub: false)
+        club = Club(creator: p1, name: "Sport Club", description: "Test club", privateClub: false, preReqsNeeded: false, preReqs: "")
     }
 
     override func tearDown() {
@@ -25,16 +25,16 @@ final class UserTests: XCTestCase {
     func testAddRequest() throws {
         var p2 = User(name: "Alison Parker", city: "Seattle")
         XCTAssertEqual(0, p2.getRequestedClubs().count)
-        p2.addClubRequest(club: club)
+        XCTAssertNoThrow(try p2.addClubRequest(club: club), "no throws in this case")
         XCTAssertEqual(1, p2.getRequestedClubs().count)
     }
     
     func testRemoveRequest() throws {
         var p2 = User(name: "Alison Parker", city: "Seattle")
         XCTAssertEqual(0, p2.getRequestedClubs().count)
-        p2.addClubRequest(club: club)
+        XCTAssertNoThrow(try p2.addClubRequest(club: club), "no throws in this case")
         XCTAssertEqual(1, p2.getRequestedClubs().count)
-        p2.removeClubRequest(club: club)
+        XCTAssertNoThrow(try p2.removeClubRequest(club: club), "no throws in this case")
         XCTAssertEqual(0, p2.getRequestedClubs().count)
     }
     

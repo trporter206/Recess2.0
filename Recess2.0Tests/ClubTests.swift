@@ -17,7 +17,7 @@ final class ClubTests: XCTestCase {
     override func setUp() {
         p1 = User(name: "Torri Porter", city: "Vancouver")
         p2 = User(name: "Alison Parker", city: "Seattle")
-        club = Club(creator: p1, name: "Sports Club", description: "Test club", privateClub: false)
+        club = Club(creator: p1, name: "Sports Club", description: "Test club", privateClub: false, preReqsNeeded: false, preReqs: "")
     }
 
     override func tearDown() {
@@ -38,22 +38,22 @@ final class ClubTests: XCTestCase {
     func testAddMemberTrue() {
         club.newRequest(user: p2)
         XCTAssertEqual(1, club.getRequests().count)
-        club.addMember(user: p2, accepted: true)
+        XCTAssertNoThrow(try club.addMember(user: p2, accepted: true), "userNotFound is not thrown in this case")
         XCTAssertEqual(2, club.getMembers().count)
     }
     
     func testAddMemberFalse() {
         club.newRequest(user: p2)
         XCTAssertEqual(1, club.getRequests().count)
-        club.addMember(user: p2, accepted: false)
+        XCTAssertNoThrow(try club.addMember(user: p2, accepted: false), "userNotFound is not thrown in this case")
         XCTAssertEqual(1, club.getMembers().count)
     }
     
     func testRemoveMember() {
         club.newRequest(user: p2)
-        club.addMember(user: p2, accepted: true)
+        XCTAssertNoThrow(try club.addMember(user: p2, accepted: true), "userNotFound is not thrown in this case")
         XCTAssertEqual(2, club.getMembers().count)
-        club.removeMember(user: p2)
+        XCTAssertNoThrow(try club.removeMember(user: p2), "userNotInClub is not thrown in this case")
         XCTAssertEqual(1, club.getMembers().count)
     }
     

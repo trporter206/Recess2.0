@@ -35,7 +35,7 @@ final class MeetUpTests: XCTestCase {
         XCTAssertEqual(0, mu.getPlayers().count)
         mu.addPlayer(user: p2)
         XCTAssertEqual(1, mu.getPlayers().count)
-        mu.removePlayer(user: p2)
+        XCTAssertNoThrow(try mu.removePlayer(user: p2), "no throws in this case")
         XCTAssertEqual(0, mu.getPlayers().count)
         
     }
@@ -55,7 +55,7 @@ final class MeetUpTests: XCTestCase {
         p1.addMeetUp(mu: mu2)
         p1.addToMeetUpsJoined()
         XCTAssertEqual(1, p1.getScheduledMeetUps().count)
-        p1.removeMeetUp(mu: mu2)
+        XCTAssertNoThrow(try p1.removeMeetUp(mu: mu2), "no throws in this case")
         XCTAssertEqual(0, p1.getScheduledMeetUps().count)
     }
 

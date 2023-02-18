@@ -34,10 +34,12 @@ struct MeetUp: Equatable {
         self.players.append(user)
     }
     
-    //REQUIRES: user is in players
     //MODIFIES: this
     //EFFECTS: removes user from players
-    mutating func removePlayer(user: User) {
+    mutating func removePlayer(user: User) throws {
+        if !players.contains(where: {$0.getID() == user.getID()}) {
+            throw RecessExceptions.userNotFound
+        }
         self.players.removeAll{ $0.getID() == user.getID() }
     }
     

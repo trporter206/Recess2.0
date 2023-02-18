@@ -33,28 +33,21 @@ struct User {
     //METHODS==========================
     
     //MODIFIES: this
-    //EFFECTS: remove meet up from scheduled
-    mutating func removeMeetUp(mu: MeetUp) {
-        self.scheduledMeetUps.removeAll{$0 == mu}
+    //EFFECTS: add club to requested
+    mutating func addClubRequest(club: Club) throws {
+        if requestedClubs.contains(where: {$0.id == club.id}) {
+            throw RecessExceptions.clubAlreadyRequested
+        }
+        self.requestedClubs.append(club)
     }
     
-    //MODIFIES: this
-    //EFFECTS: add meet up to scheduled
-    mutating func addMeetUp(mu: MeetUp) {
-        self.scheduledMeetUps.append(mu)
-    }
-    
-    //REQUIRES: club in joinRequests
     //MODIFIES: this
     //EFFECTS: remove club from requests
-    mutating func removeClubRequest(club: Club) {
+    mutating func removeClubRequest(club: Club) throws {
+        if !self.requestedClubs.contains(where: {$0.getName() == club.getName()}) {
+            throw RecessExceptions.clubNotRequested
+        }
         self.requestedClubs.removeAll{$0.getName() == club.getName()}
-    }
-    
-    //MODIFIES: this
-    //EFFECTS: add club to requested
-    mutating func addClubRequest(club: Club) {
-        self.requestedClubs.append(club)
     }
     
     //MODIFIES: this
@@ -64,9 +57,18 @@ struct User {
     }
     
     //MODIFIES: this
-    //EFFECTS: if request is accepted, club added to clubs list
-    mutating func leaveClub(club: Club) {
+    //EFFECTS: remove club from currentClubs
+    mutating func leaveClub(club: Club) throws {
+        if !self.joinedClubs.contains(where: {$0.getName() == club.getName()}) {
+            throw RecessExceptions.clubNotFound
+        }
         self.joinedClubs.removeAll{$0.getName() == club.getName()}
+    }
+    
+    //MODIFIES: this
+    //EFFECTS: increment number of meet ups joined
+    mutating func addToMeetUpsJoined() {
+        self.numJoinedMeets += 1
     }
     
     //MODIFIES: this
@@ -76,9 +78,18 @@ struct User {
     }
     
     //MODIFIES: this
-    //EFFECTS: increment number of meet ups joined
-    mutating func addToMeetUpsJoined() {
-        self.numJoinedMeets += 1
+    //EFFECTS: remove meet up from scheduled
+    mutating func removeMeetUp(mu: MeetUp) throws {
+        if !self.scheduledMeetUps.contains(where: {$0.getID() == mu.getID()}) {
+            throw RecessExceptions.meetUpNotFound
+        }
+        self.scheduledMeetUps.removeAll{$0 == mu}
+    }
+    
+    //MODIFIES: this
+    //EFFECTS: add meet up to scheduled
+    mutating func addMeetUp(mu: MeetUp) {
+        self.scheduledMeetUps.append(mu)
     }
     
     //GETTERS==========================

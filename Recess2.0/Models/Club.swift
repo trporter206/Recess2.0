@@ -34,22 +34,24 @@ struct Club: Identifiable {
     
     //METHODS=================================
     
-    //REQUIRES: user is in requests
     //MODIFIES: this
     //EFFECTS: add given user to members if accepted, remove from requests either way
-    mutating func addMember(user: User, accepted: Bool) {
+    mutating func addMember(user: User, accepted: Bool) throws {
+        if !requests.contains(where: {$0.getID() == user.getID()}) {
+            throw RecessExceptions.userNotFound
+        }
         if accepted {
             self.members.append(user)
-            self.requests.removeAll{$0.getName() == user.getName()}
-        } else {
-            self.requests.removeAll{$0.getName() == user.getName()}
         }
+        self.requests.removeAll{$0.getName() == user.getName()}
     }
     
-    //REQUIRES: user is member
     //MODIFIES: this
     //EFFECTS: remove player from members list
-    mutating func removeMember(user: User) {
+    mutating func removeMember(user: User) throws {
+        if !members.contains(where: {$0.getID() == user.getID()}) {
+            throw RecessExceptions.userNotInClub
+        }
         self.members.removeAll{$0.getName() == user.getName()}
     }
     
