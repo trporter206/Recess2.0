@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MeetUp: Equatable {
+struct MeetUp: Equatable, Hashable {
     private var id: String? = UUID().uuidString
     private var host: User
     private var sport: String
@@ -43,9 +43,13 @@ struct MeetUp: Equatable {
         self.players.removeAll{ $0.getID() == user.getID() }
     }
     
-    //EFFECTS: for equatability
+    //EFFECTS: for Hashability
     static func == (lhs: MeetUp, rhs: MeetUp) -> Bool {
             return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     //GETTERS==================================
@@ -75,4 +79,29 @@ struct MeetUp: Equatable {
     mutating func setDate(date: String) { self.date = date }
     
     mutating func setGearNeeded(needed: Bool) { self.gearNeeded = needed }
+}
+
+extension MeetUp {
+    struct Data {
+        var sport: String = ""
+        var about: String = ""
+        var date: String = ""
+        var gearNeeded: Bool = false
+    }
+    
+    mutating func update(from data: Data) {
+        sport = data.sport
+        about = data.about
+        date = data.date
+        gearNeeded = data.gearNeeded
+    }
+    
+    init(data: Data, dataManager: DataManager) {
+        host = dataManager.currentUser
+        sport = data.sport
+        about = data.about
+        players = [dataManager.currentUser]
+        date = data.date
+        gearNeeded = data.gearNeeded
+    }
 }

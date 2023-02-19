@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct Recess2_0App: App {
+    var dataManager = DataManager()
     var body: some Scene {
         WindowGroup {
-            ClubList(dataManager: DataManager())
+            NavigationMenu(dataManager: dataManager)
         }
     }
 }

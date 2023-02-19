@@ -29,6 +29,11 @@ class DataManager: ObservableObject {
         users.append(u0)
         users.append(u1)
         users.append(u2)
+        meetUps.append(m0)
+        meetUps.append(m1)
+        meetUps.append(m2)
+        currentUser.addMeetUp(mu: m0)
+        currentUser.addMeetUp(mu: m1)
     }
     
     
