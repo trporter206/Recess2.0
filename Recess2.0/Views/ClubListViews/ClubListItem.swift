@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ClubListItem: View {
     @ObservedObject var dataManager: DataManager
-    var club: Club
+    @Binding var club: Club
     
     var body: some View {
-        NavigationLink(destination: ClubDetail(dataManager: dataManager, club: club), label: {
+        NavigationLink(destination: ClubDetail(dataManager: dataManager, club: $club), label: {
             VStack (alignment: .leading) {
                 Text(club.getName())
                     .font(.title3)
@@ -30,6 +30,6 @@ struct ClubListItem: View {
 
 struct ClubListItem_Previews: PreviewProvider {
     static var previews: some View {
-        ClubListItem(dataManager: DataManager(), club: DataManager().clubs[0])
+        ClubListItem(dataManager: DataManager(), club: .constant(DataManager().clubs[0]))
     }
 }

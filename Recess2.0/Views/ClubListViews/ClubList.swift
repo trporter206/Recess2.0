@@ -14,8 +14,8 @@ struct ClubList: View {
         NavigationView {
             VStack {
                 Text("Number of clubs: \(dataManager.clubs.count)").bold().padding()
-                ForEach(dataManager.clubs) { club in
-                    ClubListItem(dataManager: dataManager, club: club)
+                ForEach($dataManager.clubs) { $club in
+                    ClubListItem(dataManager: dataManager, club: $club)
                 }
                 NavigationLink(destination: CreateClubForm(dataManager: dataManager), label: {
                     Text("Create Club").padding()

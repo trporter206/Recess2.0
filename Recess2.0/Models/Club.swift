@@ -37,8 +37,11 @@ struct Club: Identifiable {
     //MODIFIES: this
     //EFFECTS: add given user to members if accepted, remove from requests either way
     mutating func addMember(user: User, accepted: Bool) throws {
-        if !requests.contains(where: {$0.getID() == user.getID()}) {
-            throw RecessExceptions.userNotFound
+        //if the clb is private, make sure the user has requested first
+        if self.getPrivateClub() {
+            if !requests.contains(where: {$0.getID() == user.getID()}) {
+                throw RecessExceptions.userNotFound
+            }
         }
         if accepted {
             self.members.append(user)

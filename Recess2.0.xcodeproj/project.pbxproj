@@ -22,6 +22,7 @@
 		D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA65C29A2AFD700810C74 /* Dashboard.swift */; };
 		D74BA65F29A2B5F900810C74 /* MeetUpDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */; };
 		D74BA66129A2EA0D00810C74 /* CreateMeetUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA66029A2EA0D00810C74 /* CreateMeetUpForm.swift */; };
+		D74BA66329A308C500810C74 /* JoinClubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA66229A308C500810C74 /* JoinClubButton.swift */; };
 		D77B617C29A0550D008B80F2 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617B29A0550D008B80F2 /* Exceptions.swift */; };
 		D77B617F29A16A8F008B80F2 /* ClubListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617E29A16A8F008B80F2 /* ClubListItem.swift */; };
 		D77B618029A16A8F008B80F2 /* ClubListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617E29A16A8F008B80F2 /* ClubListItem.swift */; };
@@ -76,6 +77,7 @@
 		D74BA65C29A2AFD700810C74 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpDetail.swift; sourceTree = "<group>"; };
 		D74BA66029A2EA0D00810C74 /* CreateMeetUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMeetUpForm.swift; sourceTree = "<group>"; };
+		D74BA66229A308C500810C74 /* JoinClubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClubButton.swift; sourceTree = "<group>"; };
 		D77B617B29A0550D008B80F2 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 		D77B617E29A16A8F008B80F2 /* ClubListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListItem.swift; sourceTree = "<group>"; };
 		D797F5C32995F71F005F6E0B /* ClubDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetail.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				D74BA65C29A2AFD700810C74 /* Dashboard.swift */,
 				D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */,
 				D74BA66029A2EA0D00810C74 /* CreateMeetUpForm.swift */,
+				D74BA66229A308C500810C74 /* JoinClubButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D797F5C42995F71F005F6E0B /* ClubDetail.swift in Sources */,
+				D74BA66329A308C500810C74 /* JoinClubButton.swift in Sources */,
 				D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */,
 				D74BA65F29A2B5F900810C74 /* MeetUpDetail.swift in Sources */,
 				D77B617C29A0550D008B80F2 /* Exceptions.swift in Sources */,

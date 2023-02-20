@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ClubDetail: View {
     @ObservedObject var dataManager: DataManager
-    var club: Club
+    @Binding var club: Club
     
     var body: some View {
         VStack {
@@ -32,12 +32,18 @@ struct ClubDetail: View {
                 Text("No pre-reqs needed").padding()
             }
             Text("Members: \(club.getMembers().count)")
+            ForEach(club.getMembers(), id:\.self) { member in
+                Text(member.getName())
+            }
+            Spacer()
+            JoinClubButton(dataManager: dataManager, club: $club)
         }
+        .padding()
     }
 }
 
 struct ClubDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ClubDetail(dataManager: DataManager(), club: DataManager().clubs[0])
+        ClubDetail(dataManager: DataManager(), club: .constant(DataManager().clubs[0]))
     }
 }

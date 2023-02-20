@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User {
+struct User: Hashable {
     private var id: String? = UUID().uuidString
     private var name: String
     private var city: String
@@ -90,6 +90,15 @@ struct User {
     //EFFECTS: add meet up to scheduled
     mutating func addMeetUp(mu: MeetUp) {
         self.scheduledMeetUps.append(mu)
+    }
+    
+    //EFFECTS: for Hashability
+    static func == (lhs: User, rhs: User) -> Bool {
+            return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     //GETTERS==========================

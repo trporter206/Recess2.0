@@ -14,7 +14,7 @@ struct NavigationMenu: View {
             Dashboard(dataManager: dataManager)
                 .tabItem { Label ("Dashboard", systemImage: "globe")}
             ClubList(dataManager: dataManager)
-                .tabItem { Label ("Community", systemImage: "list")}
+                .tabItem { Label ("Community", systemImage: "list.bullet")}
         }
     }
 }
