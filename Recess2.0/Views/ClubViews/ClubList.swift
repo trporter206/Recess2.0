@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct ClubList: View {
-    @ObservedObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: DataManager
     
     var body: some View {
         NavigationView {
             VStack {
                 Text("Number of clubs: \(dataManager.clubs.count)").bold().padding()
                 ForEach($dataManager.clubs) { $club in
-                    ClubListItem(dataManager: dataManager, club: $club)
+                    ClubListItem(club: $club)
                 }
-                NavigationLink(destination: CreateClubForm(dataManager: dataManager), label: {
+                NavigationLink(destination: CreateClubForm(), label: {
                     Text("Create Club").padding()
                 })
             }
@@ -27,6 +27,6 @@ struct ClubList: View {
 
 struct ClubList_Previews: PreviewProvider {
     static var previews: some View {
-        ClubList(dataManager: DataManager())
+        ClubList().environmentObject(DataManager())
     }
 }

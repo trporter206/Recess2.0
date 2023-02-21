@@ -8,7 +8,7 @@
 import SwiftUI
 //TODO convert to club.data object to remove params
 struct CreateClubForm: View {
-    @ObservedObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: DataManager
     @State private var newClubData = Club.Data()
     @State private var showingAlert = false
     @Environment(\.presentationMode) var presentationMode
@@ -46,6 +46,6 @@ struct CreateClubForm: View {
 
 struct CreateClubForm_Previews: PreviewProvider {
     static var previews: some View {
-        CreateClubForm(dataManager: DataManager())
+        CreateClubForm().environmentObject(DataManager())
     }
 }

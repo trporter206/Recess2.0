@@ -8,27 +8,28 @@
 import SwiftUI
 
 struct Dashboard: View {
-    @ObservedObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: DataManager
     var body: some View {
         NavigationView {
             VStack {
                 Text("Hello, \(dataManager.currentUser.getName())").padding()
                 Text("Your scheduled activities (\(dataManager.currentUser.getScheduledMeetUps().count))").padding([.top])
-                NavigationLink(destination: CreateMeetUpForm(dataManager: dataManager), label: {
+                NavigationLink(destination: CreateMeetUpForm(), label: {
                     Text("Create Activity").padding([.bottom])
                 })
                 ForEach(dataManager.currentUser.getScheduledMeetUps(), id: \.self) { meetup in
-                    NavigationLink(destination: MeetUpDetail(dataManager: dataManager, meetUp: meetup), label: {
+                    NavigationLink(destination: MeetUpDetail(meetUp: meetup), label: {
                         Text(meetup.getSport()).padding([.bottom]).foregroundColor(.black)
                     })
                 }
             }
         }
+        .environmentObject(dataManager)
     }
 }
 
 struct Dashboard_Previews: PreviewProvider {
     static var previews: some View {
-        Dashboard(dataManager: DataManager())
+        Dashboard().environmentObject(DataManager())
     }
 }

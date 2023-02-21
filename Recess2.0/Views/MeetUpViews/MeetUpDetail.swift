@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MeetUpDetail: View {
-    @ObservedObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: DataManager
     var meetUp: MeetUp
     
     var body: some View {
@@ -18,6 +18,6 @@ struct MeetUpDetail: View {
 
 struct MeetUpDetail_Previews: PreviewProvider {
     static var previews: some View {
-        MeetUpDetail(dataManager: DataManager(), meetUp: DataManager().meetUps[0])
+        MeetUpDetail(meetUp: DataManager().meetUps[0]).environmentObject(DataManager())
     }
 }

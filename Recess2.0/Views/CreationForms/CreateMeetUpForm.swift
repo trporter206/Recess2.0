@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CreateMeetUpForm: View {
-    @ObservedObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: DataManager
     @State private var newMeetUpData = MeetUp.Data()
     @State private var showingAlert = false
     @Environment(\.presentationMode) var presentationMode
@@ -49,6 +49,6 @@ struct CreateMeetUpForm: View {
 
 struct CreateMeetUpForm_Previews: PreviewProvider {
     static var previews: some View {
-        CreateMeetUpForm(dataManager: DataManager())
+        CreateMeetUpForm().environmentObject(DataManager())
     }
 }

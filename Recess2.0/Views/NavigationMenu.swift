@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct NavigationMenu: View {
-    @ObservedObject var dataManager: DataManager
+    @StateObject var dataManager = DataManager()
     var body: some View {
         TabView {
-            Dashboard(dataManager: dataManager)
+            Dashboard()
                 .tabItem { Label ("Dashboard", systemImage: "globe")}
-            ClubList(dataManager: dataManager)
-                .tabItem { Label ("Community", systemImage: "list.bullet")}
+            ClubList()
+                .tabItem { Label ("Explore", systemImage: "list.bullet")}
         }
+        .environmentObject(dataManager)
     }
 }
 

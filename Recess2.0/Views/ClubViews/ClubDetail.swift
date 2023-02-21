@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ClubDetail: View {
-    @ObservedObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: DataManager
     @Binding var club: Club
     
     var body: some View {
@@ -36,7 +36,7 @@ struct ClubDetail: View {
                 Text(member.getName())
             }
             Spacer()
-            JoinClubButton(dataManager: dataManager, club: $club)
+            JoinClubButton(club: $club)
         }
         .padding()
     }
@@ -44,6 +44,6 @@ struct ClubDetail: View {
 
 struct ClubDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ClubDetail(dataManager: DataManager(), club: .constant(DataManager().clubs[0]))
+        ClubDetail(club: .constant(DataManager().clubs[0])).environmentObject(DataManager())
     }
 }

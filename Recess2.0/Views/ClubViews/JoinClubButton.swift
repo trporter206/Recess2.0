@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct JoinClubButton: View {
-    @ObservedObject var dataManager: DataManager
+    @EnvironmentObject var dataManager: DataManager
     @Binding var club: Club
     var body: some View {
         if club.getCreator().getName() != dataManager.currentUser.getName() {
@@ -54,6 +54,6 @@ struct JoinClubButton: View {
 
 struct JoinClubButton_Previews: PreviewProvider {
     static var previews: some View {
-        JoinClubButton(dataManager: DataManager(), club: .constant(DataManager().clubs[0]))
+        JoinClubButton(club: .constant(DataManager().clubs[0])).environmentObject(DataManager())
     }
 }
