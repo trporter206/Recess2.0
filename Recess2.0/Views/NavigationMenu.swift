@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct NavigationMenu: View {
-    @StateObject var dataManager = DataManager()
+    @EnvironmentObject var dM: DataManager
     var body: some View {
         TabView {
             Dashboard()
                 .tabItem { Label ("Dashboard", systemImage: "globe")}
-            ClubList()
+            Explore()
                 .tabItem { Label ("Explore", systemImage: "list.bullet")}
+            UserProfile()
+                .tabItem { Label ("Profile", systemImage: "person")}
         }
-        .environmentObject(dataManager)
+        .environmentObject(dM)
     }
 }
 
 struct NavigationMenu_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationMenu(dataManager: DataManager())
+        NavigationMenu().environmentObject(DataManager())
     }
 }

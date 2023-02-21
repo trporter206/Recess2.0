@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CreateMeetUpForm: View {
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dM: DataManager
     @State private var newMeetUpData = MeetUp.Data()
     @State private var showingAlert = false
     @Environment(\.presentationMode) var presentationMode
@@ -27,13 +27,14 @@ struct CreateMeetUpForm: View {
                 .toggleStyle(.switch)
                 .padding()
             Button(action: {
-                let mu = MeetUp(host: dataManager.currentUser,
+                let mu = MeetUp(host: dM.currentUser,
                                 sport: newMeetUpData.sport,
                                 about: newMeetUpData.about,
                                 date: newMeetUpData.date,
                                 gearNeeded: newMeetUpData.gearNeeded)
-                dataManager.meetUps.append(mu)
-                dataManager.currentUser.addMeetUp(mu: mu)
+                dM.meetUps.append(mu)
+                dM.currentUser.addMeetUp(mu: mu)
+                dM.currentUser.addToMeetUpHosted()
                 showingAlert = true
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {

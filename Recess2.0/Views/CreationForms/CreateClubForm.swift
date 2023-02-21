@@ -8,7 +8,7 @@
 import SwiftUI
 //TODO convert to club.data object to remove params
 struct CreateClubForm: View {
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dM: DataManager
     @State private var newClubData = Club.Data()
     @State private var showingAlert = false
     @Environment(\.presentationMode) var presentationMode
@@ -24,13 +24,13 @@ struct CreateClubForm: View {
             }
             Toggle("Club is private", isOn: $newClubData.privateClub).toggleStyle(.switch).padding()
             Button(action: {
-                let c = Club(creator: dataManager.currentUser,
+                let c = Club(creator: dM.currentUser,
                              name: newClubData.name,
                              description: newClubData.description,
                              privateClub: newClubData.privateClub,
                              preReqsNeeded: newClubData.preReqsNeeded,
                              preReqs: newClubData.preReqs)
-                dataManager.clubs.append(c)
+                dM.clubs.append(c)
                 showingAlert = true
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {

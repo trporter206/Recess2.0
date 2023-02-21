@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MeetUpDetail: View {
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dM: DataManager
     var meetUp: MeetUp
     
     var body: some View {

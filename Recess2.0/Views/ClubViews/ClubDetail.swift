@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ClubDetail: View {
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dM: DataManager
     @Binding var club: Club
     
     var body: some View {

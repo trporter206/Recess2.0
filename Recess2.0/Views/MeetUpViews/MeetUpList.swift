@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct MeetUpList: View {
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dM: DataManager
     
     var body: some View {
-        NavigationView {
-            VStack {
-                ForEach(dataManager.meetUps, id: \.self) { meetup in
-                    NavigationLink(destination: MeetUpDetail(meetUp: meetup), label: {
-                        Text(meetup.getSport())
-                            .foregroundColor(.black)
-                            .padding([.bottom])
-                    })
-                }
+        VStack {
+            NavigationLink(destination: CreateMeetUpForm(), label: {
+                Text("Create Activity").padding()
+            })
+            Text("Number of Activities: \(dM.meetUps.count)").bold().padding()
+            ForEach($dM.meetUps, id: \.self) { $meetup in
+                MeetUpListItem(meetUp: $meetup)
             }
         }
     }

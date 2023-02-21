@@ -9,10 +9,10 @@ import SwiftUI
 
 @main
 struct Recess2_0App: App {
-    var dataManager = DataManager()
+    @StateObject var dataManager = DataManager()
     var body: some Scene {
         WindowGroup {
-            NavigationMenu(dataManager: dataManager)
+            NavigationMenu().environmentObject(dataManager)
         }
     }
 }

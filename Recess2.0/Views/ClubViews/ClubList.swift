@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct ClubList: View {
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dM: DataManager
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("Number of clubs: \(dataManager.clubs.count)").bold().padding()
-                ForEach($dataManager.clubs) { $club in
-                    ClubListItem(club: $club)
-                }
-                NavigationLink(destination: CreateClubForm(), label: {
-                    Text("Create Club").padding()
-                })
+        VStack {
+            NavigationLink(destination: CreateClubForm(), label: {
+                Text("Create Club").padding()
+            })
+            Text("Number of clubs: \(dM.clubs.count)").bold().padding()
+            ForEach($dM.clubs) { $club in
+                ClubListItem(club: $club)
             }
         }
     }

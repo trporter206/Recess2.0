@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct Dashboard: View {
-    @EnvironmentObject var dataManager: DataManager
+    @EnvironmentObject var dM: DataManager
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
-                Text("Hello, \(dataManager.currentUser.getName())").padding()
-                Text("Your scheduled activities (\(dataManager.currentUser.getScheduledMeetUps().count))").padding([.top])
+                Text("Hello, \(dM.currentUser.getName())").padding()
+                Text("Your scheduled activities (\(dM.currentUser.getScheduledMeetUps().count))").padding([.top])
                 NavigationLink(destination: CreateMeetUpForm(), label: {
                     Text("Create Activity").padding([.bottom])
                 })
-                ForEach(dataManager.currentUser.getScheduledMeetUps(), id: \.self) { meetup in
+                ForEach(dM.currentUser.getScheduledMeetUps(), id: \.self) { meetup in
                     NavigationLink(destination: MeetUpDetail(meetUp: meetup), label: {
                         Text(meetup.getSport()).padding([.bottom]).foregroundColor(.black)
                     })
                 }
             }
         }
-        .environmentObject(dataManager)
+        .environmentObject(dM)
     }
 }
 

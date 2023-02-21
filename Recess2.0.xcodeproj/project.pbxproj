@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D71FDD8B29A464B10001E943 /* MeetUpList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD8A29A464B10001E943 /* MeetUpList.swift */; };
+		D71FDD8D29A471540001E943 /* Explore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD8C29A471540001E943 /* Explore.swift */; };
+		D71FDD8F29A477B00001E943 /* MeetUpListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD8E29A477B00001E943 /* MeetUpListItem.swift */; };
+		D71FDD9229A479250001E943 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD9129A479250001E943 /* UserProfile.swift */; };
 		D738AB962992DC2D00D6024E /* Recess2_0App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738AB952992DC2D00D6024E /* Recess2_0App.swift */; };
 		D738AB982992DC2D00D6024E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738AB972992DC2D00D6024E /* ContentView.swift */; };
 		D738AB9A2992DC2F00D6024E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D738AB992992DC2F00D6024E /* Assets.xcassets */; };
@@ -60,6 +63,9 @@
 
 /* Begin PBXFileReference section */
 		D71FDD8A29A464B10001E943 /* MeetUpList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpList.swift; sourceTree = "<group>"; };
+		D71FDD8C29A471540001E943 /* Explore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Explore.swift; sourceTree = "<group>"; };
+		D71FDD8E29A477B00001E943 /* MeetUpListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpListItem.swift; sourceTree = "<group>"; };
+		D71FDD9129A479250001E943 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		D738AB922992DC2D00D6024E /* Recess2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recess2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D738AB952992DC2D00D6024E /* Recess2_0App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recess2_0App.swift; sourceTree = "<group>"; };
 		D738AB972992DC2D00D6024E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -135,8 +141,19 @@
 			children = (
 				D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */,
 				D71FDD8A29A464B10001E943 /* MeetUpList.swift */,
+				D71FDD8E29A477B00001E943 /* MeetUpListItem.swift */,
 			);
 			path = MeetUpViews;
+			sourceTree = "<group>";
+		};
+		D71FDD9029A4790A0001E943 /* RootViews */ = {
+			isa = PBXGroup;
+			children = (
+				D71FDD8C29A471540001E943 /* Explore.swift */,
+				D74BA65C29A2AFD700810C74 /* Dashboard.swift */,
+				D71FDD9129A479250001E943 /* UserProfile.swift */,
+			);
+			path = RootViews;
 			sourceTree = "<group>";
 		};
 		D738AB892992DC2D00D6024E = {
@@ -226,11 +243,11 @@
 		D7CD03BF2995BD520030A394 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D74BA65A29A2AE5B00810C74 /* NavigationMenu.swift */,
+				D71FDD9029A4790A0001E943 /* RootViews */,
 				D71FDD8929A4640C0001E943 /* MeetUpViews */,
 				D71FDD8829A463CD0001E943 /* CreationForms */,
 				D77B617D29A16A53008B80F2 /* ClubViews */,
-				D74BA65A29A2AE5B00810C74 /* NavigationMenu.swift */,
-				D74BA65C29A2AFD700810C74 /* Dashboard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -396,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D797F5C42995F71F005F6E0B /* ClubDetail.swift in Sources */,
+				D71FDD8F29A477B00001E943 /* MeetUpListItem.swift in Sources */,
 				D74BA66329A308C500810C74 /* JoinClubButton.swift in Sources */,
 				D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */,
 				D74BA65F29A2B5F900810C74 /* MeetUpDetail.swift in Sources */,
@@ -406,12 +424,14 @@
 				D74BA65B29A2AE5B00810C74 /* NavigationMenu.swift in Sources */,
 				D738ABC52992DF2300D6024E /* MeetUp.swift in Sources */,
 				D77B617F29A16A8F008B80F2 /* ClubListItem.swift in Sources */,
+				D71FDD9229A479250001E943 /* UserProfile.swift in Sources */,
 				D738AB962992DC2D00D6024E /* Recess2_0App.swift in Sources */,
 				D738ABC12992DCC500D6024E /* User.swift in Sources */,
 				D7CD03C32995C1650030A394 /* CreateClubForm.swift in Sources */,
 				D738ABC32992DE3000D6024E /* Club.swift in Sources */,
 				D7CD03C12995BD620030A394 /* ClubList.swift in Sources */,
 				D74BA66129A2EA0D00810C74 /* CreateMeetUpForm.swift in Sources */,
+				D71FDD8D29A471540001E943 /* Explore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
