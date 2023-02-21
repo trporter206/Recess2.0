@@ -13,10 +13,10 @@ struct MeetUp: Equatable, Hashable {
     private var sport: String
     private var about: String
     private var players: Array<User>
-    private var date: String
+    private var date: Date
     private var gearNeeded: Bool
     
-    init(id: String = UUID().uuidString, host: User, sport: String, about: String, date: String, gearNeeded: Bool) {
+    init(id: String = UUID().uuidString, host: User, sport: String, about: String, date: Date, gearNeeded: Bool) {
         self.id = id
         self.host = host
         self.sport = sport
@@ -63,7 +63,7 @@ struct MeetUp: Equatable, Hashable {
     
     func getPlayers() -> Array<User> { return self.players }
     
-    func getDate() -> String { return self.date }
+    func getDate() -> Date { return self.date }
     
     func getGearNeeded() -> Bool { return self.gearNeeded }
     
@@ -76,7 +76,7 @@ struct MeetUp: Equatable, Hashable {
     
     mutating func setPlayers(players: Array<User>) { self.players = players }
     
-    mutating func setDate(date: String) { self.date = date }
+    mutating func setDate(date: Date) { self.date = date }
     
     mutating func setGearNeeded(needed: Bool) { self.gearNeeded = needed }
 }
@@ -85,7 +85,7 @@ extension MeetUp {
     struct Data {
         var sport: String = ""
         var about: String = ""
-        var date: String = ""
+        var date: Date = Date.now
         var gearNeeded: Bool = false
     }
     

@@ -21,7 +21,7 @@ struct CreateMeetUpForm: View {
                 .padding()
             TextField("Brief Description", text: $newMeetUpData.about)
                 .padding()
-            TextField("Date", text: $newMeetUpData.date)
+            DatePicker("Time", selection: $newMeetUpData.date, in: Date.now...Date.now.addingTimeInterval(1209600))
                 .padding()
             Toggle("Bring your own gear?", isOn: $newMeetUpData.gearNeeded)
                 .toggleStyle(.switch)

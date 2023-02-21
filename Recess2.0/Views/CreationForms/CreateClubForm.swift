@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//TODO convert to club.data object to remove params
+
 struct CreateClubForm: View {
     @EnvironmentObject var dM: DataManager
     @State private var newClubData = Club.Data()

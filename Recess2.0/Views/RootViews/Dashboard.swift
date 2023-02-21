@@ -17,10 +17,8 @@ struct Dashboard: View {
                 NavigationLink(destination: CreateMeetUpForm(), label: {
                     Text("Create Activity").padding([.bottom])
                 })
-                ForEach(dM.currentUser.getScheduledMeetUps(), id: \.self) { meetup in
-                    NavigationLink(destination: MeetUpDetail(meetUp: meetup), label: {
-                        Text(meetup.getSport()).padding([.bottom]).foregroundColor(.black)
-                    })
+                ForEach(dM.sortMeetUpsByDate(meetUps: dM.currentUser.getScheduledMeetUps()), id: \.self) { meetup in
+                    MeetUpListItem(meetUp: binding(for: meetup))
                 }
             }
         }
@@ -31,5 +29,14 @@ struct Dashboard: View {
 struct Dashboard_Previews: PreviewProvider {
     static var previews: some View {
         Dashboard().environmentObject(DataManager())
+    }
+}
+
+extension Dashboard {
+    func binding(for meetup: MeetUp) -> Binding<MeetUp> {
+        guard let index = dM.meetUps.firstIndex(of: meetup) else {
+            fatalError("Meetup not found")
+        }
+        return $dM.meetUps[index]
     }
 }

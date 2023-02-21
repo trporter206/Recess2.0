@@ -20,9 +20,9 @@ class DataManager: ObservableObject {
         var c0 = Club(creator: u0, name: "Sports Club", description: "Pick up games", privateClub: false, preReqsNeeded: false, preReqs: "")
         var c1 = Club(creator: u1, name: "Tennis Club", description: "classy tennis", privateClub: true, preReqsNeeded: false, preReqs: "")
         var c2 = Club(creator: u2, name: "Basketball Club", description: "street ball", privateClub: false, preReqsNeeded: true, preReqs: "email the creator")
-        var m0 = MeetUp(host: u0, sport: "Soccer", about: "casual game", date: "saturday", gearNeeded: true)
-        var m1 = MeetUp(host: u1, sport: "Tennis", about: "serious training", date: "Sunday", gearNeeded: true)
-        var m2 = MeetUp(host: u2, sport: "Basketball", about: "street ball", date: "Next week", gearNeeded: false)
+        var m0 = MeetUp(host: u0, sport: "Soccer", about: "casual game", date: Date.now, gearNeeded: true)
+        var m1 = MeetUp(host: u1, sport: "Tennis", about: "serious training", date: Date.now + 1500000, gearNeeded: true)
+        var m2 = MeetUp(host: u2, sport: "Basketball", about: "street ball", date: Date.now + 2000000, gearNeeded: false)
         
         clubs.append(c0)
         clubs.append(c1)
@@ -39,6 +39,28 @@ class DataManager: ObservableObject {
 
     }
     
+    //TODO: test
+    //EFFECTS: return users sorted by Tier Ranking
+    func rankByTier(users: Array<User>) -> Array<User> {
+        return users.sorted(by: {$0.getTier() > $1.getTier()})
+    }
     
+    //TODO: test
+    //EFFECTS: return a filtered list of meet ups based on param
+    func filterMeetUpsBySport(meetUps: Array<MeetUp>, sport: String) -> Array<MeetUp> {
+        return meetUps.filter({$0.getSport() == sport})
+    }
     
+    //TODO: test
+    //EFFECTS: returns clubs sorted by size
+    func sortClubsBySize(clubs: Array<Club>) -> Array<Club> {
+        return clubs.sorted(by: {$0.getMembers().count > $1.getMembers().count})
+    }
+    
+    //TODO: test
+    //EFFECTS: returns meetups in order of date
+    func sortMeetUpsByDate(meetUps: Array<MeetUp>) -> Array<MeetUp> {
+        return meetUps.sorted(by: { $0.getDate().compare($1.getDate()) == .orderedAscending })
+    }
 }
+

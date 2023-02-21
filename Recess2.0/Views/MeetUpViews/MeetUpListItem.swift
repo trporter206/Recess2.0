@@ -25,6 +25,8 @@ struct MeetUpListItem: View {
                     Text("Players: \(meetUp.getPlayers().count)")
                         .font(.subheadline)
                         .foregroundColor(.black)
+                    Text(meetUp.getDate().formatted(.dateTime))
+                        .foregroundColor(.black)
                 }
                 .padding()
             }

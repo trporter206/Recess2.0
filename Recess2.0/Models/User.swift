@@ -17,6 +17,9 @@ struct User: Hashable {
     private var numHostedMeets: Int
     private var numJoinedMeets: Int
     private var scheduledMeetUps: Array<MeetUp>
+    private var wins: Int
+    private var losses: Int
+    private var tier: Int
     
     init(id: String = UUID().uuidString, name: String, city: String) {
         self.id = id
@@ -28,6 +31,9 @@ struct User: Hashable {
         self.scheduledMeetUps = []
         self.numHostedMeets = 0
         self.numJoinedMeets = 0
+        self.wins = 0
+        self.losses = 0
+        self.tier = 0
     }
     
     //METHODS==========================
@@ -119,6 +125,12 @@ struct User: Hashable {
     func getNumJoinedMeets() -> Int { return self.numJoinedMeets }
     
     func getScheduledMeetUps() -> Array<MeetUp> { return self.scheduledMeetUps }
+    
+    func getWins() -> Int { return self.wins }
+    
+    func getLosses() -> Int { return self.losses }
+    
+    func getTier() -> Int { return self.tier }
     
     //SETTERS=====================================
     mutating func setName(name: String) { self.name = name }
