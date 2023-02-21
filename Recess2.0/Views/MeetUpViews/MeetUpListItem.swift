@@ -13,18 +13,22 @@ struct MeetUpListItem: View {
     
     var body: some View {
         NavigationLink(destination: MeetUpDetail(meetUp: meetUp), label: {
-            VStack (alignment: .leading) {
-                Text(meetUp.getSport())
-                    .font(.title3)
-                    .foregroundColor(.black)
-                Text("Players: \(meetUp.getPlayers().count)")
-                    .font(.subheadline)
-                    .foregroundColor(.black)
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(.green)
+                    .shadow(radius: 2.5, x: 3, y: 4)
+                    .padding()
+                VStack (alignment: .leading) {
+                    Text(meetUp.getSport())
+                        .font(.title3)
+                        .foregroundColor(.black)
+                    Text("Players: \(meetUp.getPlayers().count)")
+                        .font(.subheadline)
+                        .foregroundColor(.black)
+                }
+                .padding()
             }
-            .padding()
         })
-        .padding()
-        .border(.black, width: 2)
     }
 }
 

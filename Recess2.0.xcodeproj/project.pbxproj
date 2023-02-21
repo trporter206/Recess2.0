@@ -11,6 +11,7 @@
 		D71FDD8D29A471540001E943 /* Explore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD8C29A471540001E943 /* Explore.swift */; };
 		D71FDD8F29A477B00001E943 /* MeetUpListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD8E29A477B00001E943 /* MeetUpListItem.swift */; };
 		D71FDD9229A479250001E943 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD9129A479250001E943 /* UserProfile.swift */; };
+		D71FDD9529A4AAB00001E943 /* MapWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FDD9429A4AAB00001E943 /* MapWindow.swift */; };
 		D738AB962992DC2D00D6024E /* Recess2_0App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738AB952992DC2D00D6024E /* Recess2_0App.swift */; };
 		D738AB982992DC2D00D6024E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738AB972992DC2D00D6024E /* ContentView.swift */; };
 		D738AB9A2992DC2F00D6024E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D738AB992992DC2F00D6024E /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		D71FDD8C29A471540001E943 /* Explore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Explore.swift; sourceTree = "<group>"; };
 		D71FDD8E29A477B00001E943 /* MeetUpListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpListItem.swift; sourceTree = "<group>"; };
 		D71FDD9129A479250001E943 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		D71FDD9429A4AAB00001E943 /* MapWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWindow.swift; sourceTree = "<group>"; };
 		D738AB922992DC2D00D6024E /* Recess2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recess2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D738AB952992DC2D00D6024E /* Recess2_0App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recess2_0App.swift; sourceTree = "<group>"; };
 		D738AB972992DC2D00D6024E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				D71FDD8C29A471540001E943 /* Explore.swift */,
 				D74BA65C29A2AFD700810C74 /* Dashboard.swift */,
 				D71FDD9129A479250001E943 /* UserProfile.swift */,
+				D71FDD9429A4AAB00001E943 /* MapWindow.swift */,
 			);
 			path = RootViews;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				D77B617F29A16A8F008B80F2 /* ClubListItem.swift in Sources */,
 				D71FDD9229A479250001E943 /* UserProfile.swift in Sources */,
 				D738AB962992DC2D00D6024E /* Recess2_0App.swift in Sources */,
+				D71FDD9529A4AAB00001E943 /* MapWindow.swift in Sources */,
 				D738ABC12992DCC500D6024E /* User.swift in Sources */,
 				D7CD03C32995C1650030A394 /* CreateClubForm.swift in Sources */,
 				D738ABC32992DE3000D6024E /* Club.swift in Sources */,

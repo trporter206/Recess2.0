@@ -15,12 +15,15 @@ struct Explore: View {
             VStack {
                 HStack (alignment: .center){
                     Text("Clubs")
+                        .foregroundColor({currentList == "Clubs" ? .blue : .black}())
                         .onTapGesture {
                             currentList = "Clubs"
+                            
                         }
                         .font(.title)
                         .padding([.trailing])
                     Text("Meet Ups")
+                        .foregroundColor({currentList == "Meet Ups" ? .green : .black}())
                         .onTapGesture {
                             currentList = "Meet Ups"
                         }

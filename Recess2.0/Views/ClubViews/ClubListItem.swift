@@ -13,18 +13,22 @@ struct ClubListItem: View {
     
     var body: some View {
         NavigationLink(destination: ClubDetail(club: $club), label: {
-            VStack (alignment: .leading) {
-                Text(club.getName())
-                    .font(.title3)
-                    .foregroundColor(.black)
-                Text("Members: \(club.getMembers().count)")
-                    .font(.subheadline)
-                    .foregroundColor(.black)
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(.blue)
+                    .shadow(radius: 2.5, x: 3, y: 4)
+                    .padding()
+                VStack (alignment: .leading) {
+                    Text(club.getName())
+                        .font(.title3)
+                        .foregroundColor(.white)
+                    Text("Members: \(club.getMembers().count)")
+                        .font(.subheadline)
+                        .foregroundColor(.black)
+                }
+                .padding()
             }
-            .padding()
         })
-        .padding()
-        .border(.black, width: 2)
     }
 }
 
