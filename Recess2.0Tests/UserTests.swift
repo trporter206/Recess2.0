@@ -21,22 +21,6 @@ final class UserTests: XCTestCase {
         p1 = nil
         club = nil
     }
-
-    func testAddRequest() throws {
-        var p2 = User(name: "Alison Parker", city: "Seattle")
-        XCTAssertEqual(0, p2.getRequestedClubs().count)
-        XCTAssertNoThrow(try p2.addClubRequest(club: club), "no throws in this case")
-        XCTAssertEqual(1, p2.getRequestedClubs().count)
-    }
-    
-    func testRemoveRequest() throws {
-        var p2 = User(name: "Alison Parker", city: "Seattle")
-        XCTAssertEqual(0, p2.getRequestedClubs().count)
-        XCTAssertNoThrow(try p2.addClubRequest(club: club), "no throws in this case")
-        XCTAssertEqual(1, p2.getRequestedClubs().count)
-        XCTAssertNoThrow(try p2.removeClubRequest(club: club), "no throws in this case")
-        XCTAssertEqual(0, p2.getRequestedClubs().count)
-    }
     
     func testAddToMeetUpHosted() {
         XCTAssertEqual(0, p1.getNumHostedMeets())

@@ -8,12 +8,11 @@
 import Foundation
 
 struct User: Hashable {
-    private var id: String? = UUID().uuidString
+    private var id: String
     private var name: String
     private var city: String
     private var about: String
     private var joinedClubs: Array<Club>
-    private var requestedClubs: Array<Club>
     private var numHostedMeets: Int
     private var numJoinedMeets: Int
     private var scheduledMeetUps: Array<MeetUp>
@@ -27,7 +26,6 @@ struct User: Hashable {
         self.city = city
         self.about = ""
         self.joinedClubs = []
-        self.requestedClubs = []
         self.scheduledMeetUps = []
         self.numHostedMeets = 0
         self.numJoinedMeets = 0
@@ -37,24 +35,6 @@ struct User: Hashable {
     }
     
     //METHODS==========================
-    
-    //MODIFIES: this
-    //EFFECTS: add club to requested
-    mutating func addClubRequest(club: Club) throws {
-        if requestedClubs.contains(where: {$0.id == club.id}) {
-            throw RecessExceptions.clubAlreadyRequested
-        }
-        self.requestedClubs.append(club)
-    }
-    
-    //MODIFIES: this
-    //EFFECTS: remove club from requests
-    mutating func removeClubRequest(club: Club) throws {
-        if !self.requestedClubs.contains(where: {$0.getName() == club.getName()}) {
-            throw RecessExceptions.clubNotRequested
-        }
-        self.requestedClubs.removeAll{$0.getName() == club.getName()}
-    }
     
     //MODIFIES: this
     //EFFECTS: if request is accepted, club added to clubs list
@@ -108,7 +88,7 @@ struct User: Hashable {
     }
     
     //GETTERS==========================
-    func getID() -> String { return self.id! }
+    func getID() -> String { return self.id }
     
     func getName() -> String { return self.name }
     
@@ -117,8 +97,6 @@ struct User: Hashable {
     func getAbout() -> String { return self.about }
     
     func getJoinedClubs() -> Array<Club> { return self.joinedClubs }
-    
-    func getRequestedClubs() -> Array<Club> { return self.requestedClubs }
     
     func getNumHostedMeets() -> Int { return self.numHostedMeets }
     
@@ -140,8 +118,6 @@ struct User: Hashable {
     mutating func setAbout(about: String) { self.about = about }
     
     mutating func setJoinedClubs(clubs: Array<Club>) { self.joinedClubs = clubs }
-    
-    mutating func setRequestedClubs(clubs: Array<Club>) {self.requestedClubs = clubs }
     
     mutating func setNumHostedMeets(num: Int) { self.numHostedMeets = num }
     

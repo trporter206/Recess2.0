@@ -11,10 +11,11 @@ class DataManager: ObservableObject {
     @Published var clubs = [Club]()
     @Published var meetUps = [MeetUp]()
     @Published var users = [User]()
-    @Published var currentUser = User(name: "Torri Porter", city: "Vancouver")
+    @Published var currentUser: User
     
     init() {
         var u0 = User(name: "Torri Porter", city: "Vancouver")
+        self.currentUser = u0
         var u1 = User(name: "Alison Parker", city: "Seattle")
         var u2 = User(name: "John Smith", city: "Portland")
         var c0 = Club(creator: u0, name: "Sports Club", description: "Pick up games", privateClub: false, preReqsNeeded: false, preReqs: "")

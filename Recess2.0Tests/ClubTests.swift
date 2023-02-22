@@ -72,14 +72,14 @@ final class ClubTests: XCTestCase {
     }
 
     func testAddMeetUp() {
-        let mu = MeetUp(host: p1, sport: "test", about: "test", date: "test", gearNeeded: false)
+        let mu = MeetUp(host: p1, sport: "test", about: "test", date: Date.now , gearNeeded: false)
         XCTAssertEqual(0, club.getScheduledGames().count)
         club.addMeetUp(meetUp: mu)
         XCTAssertEqual(1, club.getScheduledGames().count)
     }
     
     func testRemoveMeetUp() {
-        let mu = MeetUp(host: p1, sport: "test", about: "test", date: "test", gearNeeded: false)
+        let mu = MeetUp(host: p1, sport: "test", about: "test", date: Date.now, gearNeeded: false)
         XCTAssertEqual(0, club.getScheduledGames().count)
         club.addMeetUp(meetUp: mu)
         XCTAssertEqual(1, club.getScheduledGames().count)

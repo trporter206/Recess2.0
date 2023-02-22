@@ -15,7 +15,6 @@ struct UserProfile: View {
             Text(dM.currentUser.getCity())
             Text("About: \(dM.currentUser.getAbout())")
             Text("Clubs joined: \(dM.currentUser.getJoinedClubs().count)")
-            Text("Clubs requested: \(dM.currentUser.getRequestedClubs().count)")
             Text("# Activities hosted: \(dM.currentUser.getNumHostedMeets())")
             Text("# Activities joined: \(dM.currentUser.getNumJoinedMeets())")
             Text("# Activities scheduled: \(dM.currentUser.getScheduledMeetUps().count)")

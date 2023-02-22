@@ -37,15 +37,6 @@ struct ClubDetail: View {
             }
             Spacer()
             JoinClubButton(club: $club)
-            ForEach(club.getRequests(), id: \.self) { request in
-                Button("\(request.getName())") {
-                    do {
-                        try club.addMember(user: request, accepted: true)
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
         }
         .padding()
     }
@@ -56,3 +47,4 @@ struct ClubDetail_Previews: PreviewProvider {
         ClubDetail(club: .constant(DataManager().clubs[0])).environmentObject(DataManager())
     }
 }
+

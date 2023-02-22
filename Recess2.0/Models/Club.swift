@@ -8,7 +8,7 @@
 import Foundation
 
 struct Club: Identifiable {
-    var id: String? = UUID().uuidString
+    var id: String
     private var creator: User
     private var name: String
     private var description: String
@@ -16,7 +16,6 @@ struct Club: Identifiable {
     private var preReqsNeeded: Bool
     private var privateClub: Bool
     private var members: Array<User>
-    private var requests: Array<User>
     private var scheduledGames: Array<MeetUp>
     
     init(id: String = UUID().uuidString, creator: User, name: String, description: String, privateClub: Bool, preReqsNeeded: Bool, preReqs: String) {
@@ -28,7 +27,6 @@ struct Club: Identifiable {
         self.preReqsNeeded = preReqsNeeded
         self.privateClub = privateClub
         self.members = [creator]
-        self.requests = []
         self.scheduledGames = []
     }
     
@@ -36,17 +34,8 @@ struct Club: Identifiable {
     
     //MODIFIES: this
     //EFFECTS: add given user to members if accepted, remove from requests either way
-    mutating func addMember(user: User, accepted: Bool) throws {
-        //if the clb is private, make sure the user has requested first
-        if self.getPrivateClub() {
-            if !requests.contains(where: {$0.getID() == user.getID()}) {
-                throw RecessExceptions.userNotFound
-            }
-        }
-        if accepted {
-            self.members.append(user)
-        }
-        self.requests.removeAll{$0.getName() == user.getName()}
+    mutating func addMember(user: User) throws {
+        self.members.append(user)
     }
     
     //MODIFIES: this
@@ -55,22 +44,7 @@ struct Club: Identifiable {
         if !members.contains(where: {$0.getID() == user.getID()}) {
             throw RecessExceptions.userNotInClub
         }
-        self.members.removeAll{$0.getName() == user.getName()}
-    }
-    
-    //MODIFIES: this
-    //EFFECTS: add player to requests
-    mutating func newRequest(user: User) {
-        self.requests.append(user)
-    }
-    
-    //MODIFIES: this
-    //EFFECTS: remove player request
-    mutating func removeRequest(user: User) throws {
-        if !self.requests.contains(where: {$0.getID() == user.getID()}) {
-            throw RecessExceptions.userNotFound
-        }
-        self.requests.removeAll(where: {$0.getID() == user.getID()})
+        self.members.removeAll{$0.getID() == user.getID()}
     }
     
     //MODIFIES: this
@@ -103,8 +77,6 @@ struct Club: Identifiable {
     
     mutating func setMembers(members: Array<User>) { self.members = members }
     
-    mutating func setRequests(requests: Array<User>) { self.requests = requests }
-    
     mutating func setScheduledGames(games: Array<MeetUp>) { self.scheduledGames = games }
     
     //GETTERS=================================
@@ -121,8 +93,6 @@ struct Club: Identifiable {
     func getPrivateClub() -> Bool { return self.privateClub }
     
     func getMembers() -> Array<User> { return self.members }
-    
-    func getRequests() -> Array<User> { return self.requests }
     
     func getScheduledGames() -> Array<MeetUp> { return self.scheduledGames }
 }
@@ -145,6 +115,7 @@ extension Club {
     }
     
     init(data: Data, dataManager: DataManager) {
+        id = UUID().uuidString
         creator = dataManager.currentUser
         name = data.name
         description = data.description
@@ -152,7 +123,6 @@ extension Club {
         preReqsNeeded = data.preReqsNeeded
         privateClub = data.privateClub
         members = []
-        requests = []
         scheduledGames = []
     }
 }

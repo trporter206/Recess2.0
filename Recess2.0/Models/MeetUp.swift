@@ -8,7 +8,7 @@
 import Foundation
 
 struct MeetUp: Equatable, Hashable {
-    private var id: String? = UUID().uuidString
+    private var id: String
     private var host: User
     private var sport: String
     private var about: String
@@ -53,7 +53,7 @@ struct MeetUp: Equatable, Hashable {
     }
     
     //GETTERS==================================
-    func getID() -> String { return self.id! }
+    func getID() -> String { return self.id }
     
     func getHost() -> User { return self.host }
     
@@ -97,6 +97,7 @@ extension MeetUp {
     }
     
     init(data: Data, dataManager: DataManager) {
+        id = UUID().uuidString
         host = dataManager.currentUser
         sport = data.sport
         about = data.about
