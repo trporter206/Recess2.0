@@ -17,6 +17,20 @@ struct CreateMeetUpForm: View {
         VStack {
             Text("Create New Activity")
                 .padding()
+            if dM.currentUser.getJoinedClubs().count > 0 {
+                Toggle("Club meet up?", isOn: $newMeetUpData.clubMeet)
+                    .toggleStyle(.switch)
+                    .padding()
+                if newMeetUpData.clubMeet {
+                    Text("Host Club")
+                    Picker("Host Club", selection: $newMeetUpData.hostClub) {
+                        ForEach(dM.currentUser.getJoinedClubs()) { club in
+                            Text(club.getName()).tag(club as Club?)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                }
+            }
             TextField("Sport", text: $newMeetUpData.sport )
                 .padding()
             TextField("Brief Description", text: $newMeetUpData.about)
@@ -27,14 +41,14 @@ struct CreateMeetUpForm: View {
                 .toggleStyle(.switch)
                 .padding()
             Button(action: {
-                let mu = MeetUp(host: dM.currentUser,
-                                sport: newMeetUpData.sport,
-                                about: newMeetUpData.about,
-                                date: newMeetUpData.date,
-                                gearNeeded: newMeetUpData.gearNeeded)
+                let mu = MeetUp(data: newMeetUpData, dataManager: dM)
                 dM.meetUps.append(mu)
                 dM.currentUser.addMeetUp(mu: mu)
                 dM.currentUser.addToMeetUpHosted()
+                if mu.getClubMeet() {
+                    var club = binding(for: mu.getHostClub()!)
+                    club.wrappedValue.addMeetUp(meetUp: mu)
+                }
                 showingAlert = true
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
@@ -51,5 +65,14 @@ struct CreateMeetUpForm: View {
 struct CreateMeetUpForm_Previews: PreviewProvider {
     static var previews: some View {
         CreateMeetUpForm().environmentObject(DataManager())
+    }
+}
+
+extension CreateMeetUpForm {
+    func binding(for club: Club) -> Binding<Club> {
+        guard let index = dM.clubs.firstIndex(of: club) else {
+            fatalError("Club not found")
+        }
+        return $dM.clubs[index]
     }
 }

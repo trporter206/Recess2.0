@@ -15,8 +15,10 @@ struct MeetUp: Equatable, Hashable {
     private var players: Array<User>
     private var date: Date
     private var gearNeeded: Bool
+    private var clubMeet: Bool
+    private var hostClub: Club?
     
-    init(id: String = UUID().uuidString, host: User, sport: String, about: String, date: Date, gearNeeded: Bool) {
+    init(id: String = UUID().uuidString, host: User, sport: String, about: String, date: Date, gearNeeded: Bool, clubMeet: Bool, hostClub: Club? = nil) {
         self.id = id
         self.host = host
         self.sport = sport
@@ -24,6 +26,8 @@ struct MeetUp: Equatable, Hashable {
         self.players = []
         self.date = date
         self.gearNeeded = gearNeeded
+        self.clubMeet = clubMeet
+        self.hostClub = hostClub
     }
     
     //METHODS==================================
@@ -67,6 +71,10 @@ struct MeetUp: Equatable, Hashable {
     
     func getGearNeeded() -> Bool { return self.gearNeeded }
     
+    func getClubMeet() -> Bool { return self.clubMeet }
+    
+    func getHostClub() -> Club? { return self.hostClub }
+    
     //SETTERS=====================================
     mutating func setHost(host: User) { self.host = host }
     
@@ -79,6 +87,8 @@ struct MeetUp: Equatable, Hashable {
     mutating func setDate(date: Date) { self.date = date }
     
     mutating func setGearNeeded(needed: Bool) { self.gearNeeded = needed }
+    
+    mutating func setClubMeet(bool: Bool) { self.clubMeet = bool }
 }
 
 extension MeetUp {
@@ -87,6 +97,8 @@ extension MeetUp {
         var about: String = ""
         var date: Date = Date.now
         var gearNeeded: Bool = false
+        var hostClub: Club?
+        var clubMeet: Bool = false
     }
     
     mutating func update(from data: Data) {
@@ -94,6 +106,8 @@ extension MeetUp {
         about = data.about
         date = data.date
         gearNeeded = data.gearNeeded
+        hostClub = data.hostClub
+        clubMeet = data.clubMeet
     }
     
     init(data: Data, dataManager: DataManager) {
@@ -104,5 +118,7 @@ extension MeetUp {
         players = [dataManager.currentUser]
         date = data.date
         gearNeeded = data.gearNeeded
+        hostClub = data.hostClub
+        clubMeet = data.clubMeet
     }
 }

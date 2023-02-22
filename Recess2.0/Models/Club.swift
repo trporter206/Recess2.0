@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Club: Identifiable {
+struct Club: Identifiable, Hashable {
     var id: String
     private var creator: User
     private var name: String
@@ -84,6 +84,15 @@ struct Club: Identifiable {
             throw RecessExceptions.meetUpNotFound
         }
         self.scheduledGames.removeAll(where: {$0.getID() == meetUp.getID()})
+    }
+    
+    //EFFECTS: for Hashability
+    static func == (lhs: Club, rhs: Club) -> Bool {
+            return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     //SETTERS================================
