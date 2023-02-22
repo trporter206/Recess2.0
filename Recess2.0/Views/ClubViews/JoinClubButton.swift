@@ -11,18 +11,22 @@ struct JoinClubButton: View {
     @EnvironmentObject var dM: DataManager
     @Binding var club: Club
     var body: some View {
-        if club.getCreator().getName() != dM.currentUser.getName() {
+        if club.getCreator().getID() != dM.currentUser.getID() {
             if !club.getMembers().contains(where: {$0.getID() == dM.currentUser.getID()}) {
-                Button(action: {
-                    do {
-                        try club.addMember(user: dM.currentUser)
-                    } catch {
-                        print(error)
-                    }
-                    dM.currentUser.joinClub(club: club)
-                }, label: {
-                    Text("Join Club")
-                })
+                if club.meetsReqs(user: dM.currentUser) {
+                    Button(action: {
+                        do {
+                            try club.addMember(user: dM.currentUser)
+                        } catch {
+                            print(error)
+                        }
+                        dM.currentUser.joinClub(club: club)
+                    }, label: {
+                        Text("Join Club")
+                    })
+                } else {
+                    Text("You do not meet requirements to join")
+                }
             } else if club.getMembers().contains(where: {$0.getID() == dM.currentUser.getID()}) {
                 Button(action: {
                     do {

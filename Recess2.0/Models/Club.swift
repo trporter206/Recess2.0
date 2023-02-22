@@ -12,18 +12,24 @@ struct Club: Identifiable {
     private var creator: User
     private var name: String
     private var description: String
-    private var preReqs: String
     private var preReqsNeeded: Bool
+    private var reqHosted: Int
+    private var reqJoined: Int
+    private var reqTier: Int
+    private var reqWins: Int
     private var privateClub: Bool
     private var members: Array<User>
     private var scheduledGames: Array<MeetUp>
     
-    init(id: String = UUID().uuidString, creator: User, name: String, description: String, privateClub: Bool, preReqsNeeded: Bool, preReqs: String) {
+    init(id: String = UUID().uuidString, creator: User, name: String, description: String, privateClub: Bool, preReqsNeeded: Bool, reqHosted: Int = 0, reqJoined: Int = 0, reqTier: Int = 0, reqWins: Int = 0) {
         self.id = id
         self.creator = creator
         self.name = name
         self.description = description
-        self.preReqs = preReqs
+        self.reqTier = reqTier
+        self.reqWins = reqWins
+        self.reqHosted = reqHosted
+        self.reqJoined = reqJoined
         self.preReqsNeeded = preReqsNeeded
         self.privateClub = privateClub
         self.members = [creator]
@@ -31,6 +37,24 @@ struct Club: Identifiable {
     }
     
     //METHODS=================================
+    
+    //TODO: test
+    //EFFECTS: determine if user meets reqs to join club
+    func meetsReqs(user: User) -> Bool {
+        if user.getTier() < self.reqTier {
+            return false
+        }
+        if user.getWins() < self.reqWins {
+            return false
+        }
+        if user.getNumJoinedMeets() < self.reqJoined {
+            return false
+        }
+        if user.getNumHostedMeets() < self.reqHosted {
+            return false
+        }
+        return true
+    }
     
     //MODIFIES: this
     //EFFECTS: add given user to members if accepted, remove from requests either way
@@ -69,7 +93,12 @@ struct Club: Identifiable {
     
     mutating func setDescription(desc: String) { self.description = desc }
     
-    mutating func setPreReqs(prqs: String) { self.preReqs = prqs }
+    mutating func setPreReqs(hosted: Int, joined: Int, wins: Int, tier: Int) {
+        self.reqHosted = hosted
+        self.reqJoined = joined
+        self.reqWins = wins
+        self.reqTier = tier
+    }
     
     mutating func setPreReqsNeeded(needed: Bool) { self.preReqsNeeded = needed }
     
@@ -86,7 +115,13 @@ struct Club: Identifiable {
     
     func getDescription() -> String { return self.description }
     
-    func getPreReqs() -> String { return self.preReqs }
+    func getReqHosted() -> Int { return self.reqHosted }
+    
+    func getReqJoined() -> Int { return self.reqJoined }
+    
+    func getReqTier() -> Int { return self.reqTier }
+    
+    func getReqWins() -> Int { return self.reqWins }
     
     func getPreReqsNeeded() -> Bool { return self.preReqsNeeded }
     
@@ -101,7 +136,10 @@ extension Club {
     struct Data {
         var name: String = ""
         var description: String = ""
-        var preReqs: String = ""
+        var reqHosted: Int = 0
+        var reqJoined: Int = 0
+        var reqTier: Int = 0
+        var reqWins: Int = 0
         var preReqsNeeded: Bool = false
         var privateClub: Bool = false
     }
@@ -109,7 +147,10 @@ extension Club {
     mutating func update(from data: Data) {
         name = data.name
         description = data.description
-        preReqs = data.preReqs
+        reqWins = data.reqWins
+        reqTier = data.reqTier
+        reqJoined = data.reqJoined
+        reqHosted = data.reqHosted
         preReqsNeeded = data.preReqsNeeded
         privateClub = data.privateClub
     }
@@ -119,7 +160,10 @@ extension Club {
         creator = dataManager.currentUser
         name = data.name
         description = data.description
-        preReqs = data.preReqs
+        reqWins = data.reqWins
+        reqTier = data.reqTier
+        reqJoined = data.reqJoined
+        reqHosted = data.reqHosted
         preReqsNeeded = data.preReqsNeeded
         privateClub = data.privateClub
         members = []

@@ -20,7 +20,34 @@ struct CreateClubForm: View {
             TextField("Club Description", text: $newClubData.description).padding()
             Toggle("Pre-reqs needed to join", isOn: $newClubData.preReqsNeeded).toggleStyle(.switch).padding()
             if newClubData.preReqsNeeded {
-                TextField("Pre-reqs", text: $newClubData.preReqs).padding()
+                Stepper(value: $newClubData.reqWins, in: 0...100, step: 1) {
+                    HStack {
+                        Text("Wins:")
+                        TextField("Quantity", value: $newClubData.reqWins, formatter: NumberFormatter())
+                            .keyboardType(.numbersAndPunctuation)
+                    }
+                }.padding(.bottom)
+                Stepper(value: $newClubData.reqTier, in: 0...3, step: 1) {
+                    HStack {
+                        Text("Tier:")
+                        TextField("Quantity", value: $newClubData.reqTier, formatter: NumberFormatter())
+                            .keyboardType(.numbersAndPunctuation)
+                    }
+                }.padding(.bottom)
+                Stepper(value: $newClubData.reqHosted, in: 0...100, step: 1) {
+                    HStack {
+                        Text("Hosted:")
+                        TextField("Quantity", value: $newClubData.reqHosted, formatter: NumberFormatter())
+                            .keyboardType(.numbersAndPunctuation)
+                    }
+                }.padding(.bottom)
+                Stepper(value: $newClubData.reqJoined, in: 0...100, step: 1) {
+                    HStack {
+                        Text("Joined:")
+                        TextField("Quantity", value: $newClubData.reqJoined, formatter: NumberFormatter())
+                            .keyboardType(.numbersAndPunctuation)
+                    }
+                }.padding(.bottom)
             }
             Toggle("Club is private", isOn: $newClubData.privateClub).toggleStyle(.switch).padding()
             Button(action: {
@@ -29,7 +56,10 @@ struct CreateClubForm: View {
                              description: newClubData.description,
                              privateClub: newClubData.privateClub,
                              preReqsNeeded: newClubData.preReqsNeeded,
-                             preReqs: newClubData.preReqs)
+                             reqHosted: newClubData.reqHosted,
+                             reqJoined: newClubData.reqJoined,
+                             reqTier: newClubData.reqTier,
+                             reqWins: newClubData.reqWins)
                 dM.clubs.append(c)
                 showingAlert = true
                 self.presentationMode.wrappedValue.dismiss()

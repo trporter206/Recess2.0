@@ -16,6 +16,7 @@ struct ClubDetail: View {
             Text(club.getName())
                 .font(.title)
             Text(club.getDescription()).font(.subheadline)
+                .padding([.bottom])
             HStack {
                 Text("Creator: \(club.getCreator().getName())")
                 Spacer()
@@ -25,13 +26,18 @@ struct ClubDetail: View {
                     Text("Public Club")
                 }
             }
+            Divider()
             .padding()
             if club.getPreReqsNeeded() {
-                Text(club.getPreReqs()).padding()
+                Text("Pre-requirements needed")
+                Text("Wins: \(club.getReqWins())")
+                Text("Hosted: \(club.getReqHosted())")
+                Text("Joined: \(club.getReqJoined())")
+                Text("Tier: \(club.getReqTier())")
             } else {
                 Text("No pre-reqs needed").padding()
             }
-            Text("Members: \(club.getMembers().count)")
+            Text("Members: \(club.getMembers().count)").padding([.top])
             ForEach(club.getMembers(), id:\.self) { member in
                 Text(member.getName())
             }
@@ -44,7 +50,7 @@ struct ClubDetail: View {
 
 struct ClubDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ClubDetail(club: .constant(DataManager().clubs[0])).environmentObject(DataManager())
+        ClubDetail(club: .constant(DataManager().clubs[2])).environmentObject(DataManager())
     }
 }
 

@@ -124,4 +124,6 @@ struct User: Hashable {
     mutating func setNumJoinedMeets(num: Int) { self.numJoinedMeets = num }
     
     mutating func setScheduledMeetUps(meetups: Array<MeetUp>) { self.scheduledMeetUps = meetups }
+    
+    mutating func setWins(wins: Int) { self.wins = wins }
 }
