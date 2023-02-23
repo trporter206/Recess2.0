@@ -12,7 +12,7 @@ struct MeetUpListItem: View {
     @Binding var meetUp: MeetUp
     
     var body: some View {
-        NavigationLink(destination: MeetUpDetail(meetUp: meetUp), label: {
+        NavigationLink(destination: MeetUpDetail(meetUp: $meetUp), label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(.green)
@@ -22,11 +22,13 @@ struct MeetUpListItem: View {
                     Text(meetUp.getSport())
                         .font(.title3)
                         .foregroundColor(.black)
+                        .padding([.top])
                     Text("Players: \(meetUp.getPlayers().count)")
                         .font(.subheadline)
                         .foregroundColor(.black)
                     Text(meetUp.getDate().formatted(.dateTime))
                         .foregroundColor(.black)
+                        .padding([.bottom])
                 }
                 .padding()
             }

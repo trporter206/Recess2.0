@@ -31,10 +31,12 @@ struct Explore: View {
                         .padding([.leading])
                 }
                 Divider().padding([.leading, .trailing])
-                if currentList == "Clubs" {
-                    ClubList()
-                } else {
-                    MeetUpList()
+                ScrollView(.vertical) {
+                    if currentList == "Clubs" {
+                        ClubList()
+                    } else {
+                        MeetUpList()
+                    }
                 }
                 Spacer()
             }

@@ -22,7 +22,7 @@ class DataManager: ObservableObject {
         var c0 = Club(creator: u0, name: "Sports Club", description: "Pick up games", privateClub: false, preReqsNeeded: false)
         var c1 = Club(creator: u1, name: "Tennis Club", description: "classy tennis", privateClub: true, preReqsNeeded: false)
         var c2 = Club(creator: u2, name: "Basketball Club", description: "street ball", privateClub: false, preReqsNeeded: true, reqWins: 1)
-        var m0 = MeetUp(host: u0, sport: "Soccer", about: "casual game", date: Date.now, gearNeeded: true, clubMeet: false)
+        var m0 = MeetUp(host: u1, sport: "Soccer", about: "casual game", date: Date.now, gearNeeded: true, clubMeet: false)
         var m1 = MeetUp(host: u1, sport: "Tennis", about: "serious training", date: Date.now + 1500000, gearNeeded: true, clubMeet: false)
         var m2 = MeetUp(host: u2, sport: "Basketball", about: "street ball", date: Date.now + 2000000, gearNeeded: false, clubMeet: false)
         
@@ -35,9 +35,6 @@ class DataManager: ObservableObject {
         meetUps.append(m0)
         meetUps.append(m1)
         meetUps.append(m2)
-        
-        currentUser.addMeetUp(mu: m0)
-        currentUser.addMeetUp(mu: m1)
 
     }
     

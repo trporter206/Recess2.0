@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct MeetUp: Equatable, Hashable {
-    private var id: String
+struct MeetUp: Equatable, Hashable, Identifiable {
+    var id: String
     private var host: User
     private var sport: String
     private var about: String

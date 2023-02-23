@@ -27,11 +27,12 @@
 		D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA65C29A2AFD700810C74 /* Dashboard.swift */; };
 		D74BA65F29A2B5F900810C74 /* MeetUpDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */; };
 		D74BA66129A2EA0D00810C74 /* CreateMeetUpForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA66029A2EA0D00810C74 /* CreateMeetUpForm.swift */; };
-		D74BA66329A308C500810C74 /* JoinClubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA66229A308C500810C74 /* JoinClubButton.swift */; };
+		D778323B29A71EC000459776 /* ClubDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778323A29A71EC000459776 /* ClubDetail.swift */; };
+		D778323D29A71EE300459776 /* JoinClubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778323C29A71EE300459776 /* JoinClubButton.swift */; };
+		D778323F29A727F400459776 /* JoinMeetUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778323E29A727F400459776 /* JoinMeetUpButton.swift */; };
 		D77B617C29A0550D008B80F2 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617B29A0550D008B80F2 /* Exceptions.swift */; };
 		D77B617F29A16A8F008B80F2 /* ClubListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617E29A16A8F008B80F2 /* ClubListItem.swift */; };
 		D77B618029A16A8F008B80F2 /* ClubListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617E29A16A8F008B80F2 /* ClubListItem.swift */; };
-		D797F5C42995F71F005F6E0B /* ClubDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D797F5C32995F71F005F6E0B /* ClubDetail.swift */; };
 		D7CD03BC2994AC0B0030A394 /* MeetUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD03BB2994AC0B0030A394 /* MeetUpTests.swift */; };
 		D7CD03BE2995B8690030A394 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD03BD2995B8690030A394 /* DataManager.swift */; };
 		D7CD03C12995BD620030A394 /* ClubList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CD03C02995BD620030A394 /* ClubList.swift */; };
@@ -87,10 +88,11 @@
 		D74BA65C29A2AFD700810C74 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpDetail.swift; sourceTree = "<group>"; };
 		D74BA66029A2EA0D00810C74 /* CreateMeetUpForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMeetUpForm.swift; sourceTree = "<group>"; };
-		D74BA66229A308C500810C74 /* JoinClubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClubButton.swift; sourceTree = "<group>"; };
+		D778323A29A71EC000459776 /* ClubDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetail.swift; sourceTree = "<group>"; };
+		D778323C29A71EE300459776 /* JoinClubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClubButton.swift; sourceTree = "<group>"; };
+		D778323E29A727F400459776 /* JoinMeetUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMeetUpButton.swift; sourceTree = "<group>"; };
 		D77B617B29A0550D008B80F2 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 		D77B617E29A16A8F008B80F2 /* ClubListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListItem.swift; sourceTree = "<group>"; };
-		D797F5C32995F71F005F6E0B /* ClubDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetail.swift; sourceTree = "<group>"; };
 		D7CD03BB2994AC0B0030A394 /* MeetUpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpTests.swift; sourceTree = "<group>"; };
 		D7CD03BD2995B8690030A394 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D7CD03C02995BD620030A394 /* ClubList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubList.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */,
 				D71FDD8A29A464B10001E943 /* MeetUpList.swift */,
 				D71FDD8E29A477B00001E943 /* MeetUpListItem.swift */,
+				D778323E29A727F400459776 /* JoinMeetUpButton.swift */,
 			);
 			path = MeetUpViews;
 			sourceTree = "<group>";
@@ -232,11 +235,19 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		D773529929A6EEFD00264DAD /* ClubDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D778323A29A71EC000459776 /* ClubDetail.swift */,
+				D778323C29A71EE300459776 /* JoinClubButton.swift */,
+			);
+			path = ClubDetail;
+			sourceTree = "<group>";
+		};
 		D77B617D29A16A53008B80F2 /* ClubViews */ = {
 			isa = PBXGroup;
 			children = (
-				D74BA66229A308C500810C74 /* JoinClubButton.swift */,
-				D797F5C32995F71F005F6E0B /* ClubDetail.swift */,
+				D773529929A6EEFD00264DAD /* ClubDetail */,
 				D7CD03C02995BD620030A394 /* ClubList.swift */,
 				D77B617E29A16A8F008B80F2 /* ClubListItem.swift */,
 			);
@@ -415,19 +426,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D797F5C42995F71F005F6E0B /* ClubDetail.swift in Sources */,
 				D71FDD8F29A477B00001E943 /* MeetUpListItem.swift in Sources */,
-				D74BA66329A308C500810C74 /* JoinClubButton.swift in Sources */,
 				D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */,
 				D74BA65F29A2B5F900810C74 /* MeetUpDetail.swift in Sources */,
 				D77B617C29A0550D008B80F2 /* Exceptions.swift in Sources */,
 				D71FDD8B29A464B10001E943 /* MeetUpList.swift in Sources */,
 				D738AB982992DC2D00D6024E /* ContentView.swift in Sources */,
+				D778323B29A71EC000459776 /* ClubDetail.swift in Sources */,
 				D7CD03BE2995B8690030A394 /* DataManager.swift in Sources */,
 				D74BA65B29A2AE5B00810C74 /* NavigationMenu.swift in Sources */,
 				D738ABC52992DF2300D6024E /* MeetUp.swift in Sources */,
 				D77B617F29A16A8F008B80F2 /* ClubListItem.swift in Sources */,
 				D71FDD9229A479250001E943 /* UserProfile.swift in Sources */,
+				D778323D29A71EE300459776 /* JoinClubButton.swift in Sources */,
+				D778323F29A727F400459776 /* JoinMeetUpButton.swift in Sources */,
 				D738AB962992DC2D00D6024E /* Recess2_0App.swift in Sources */,
 				D71FDD9529A4AAB00001E943 /* MapWindow.swift in Sources */,
 				D738ABC12992DCC500D6024E /* User.swift in Sources */,

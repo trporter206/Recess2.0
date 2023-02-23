@@ -11,14 +11,16 @@ struct Dashboard: View {
     @EnvironmentObject var dM: DataManager
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("Hello, \(dM.currentUser.getName())").padding()
-                Text("Your scheduled activities (\(dM.currentUser.getScheduledMeetUps().count))").padding([.top])
-                NavigationLink(destination: CreateMeetUpForm(), label: {
-                    Text("Create Activity").padding([.bottom])
-                })
-                ForEach(dM.sortMeetUpsByDate(meetUps: dM.currentUser.getScheduledMeetUps()), id: \.self) { meetup in
-                    MeetUpListItem(meetUp: binding(for: meetup))
+            ScrollView(.vertical) {
+                VStack {
+                    Text("Hello, \(dM.currentUser.getName())").padding()
+                    Text("Your scheduled activities (\(dM.currentUser.getScheduledMeetUps().count))").padding([.top])
+                    NavigationLink(destination: CreateMeetUpForm(), label: {
+                        Text("Create Activity").padding([.bottom])
+                    })
+                    ForEach(dM.sortMeetUpsByDate(meetUps: dM.currentUser.getScheduledMeetUps())) { meetup in
+                        MeetUpListItem(meetUp: binding(for: meetup))
+                    }
                 }
             }
         }

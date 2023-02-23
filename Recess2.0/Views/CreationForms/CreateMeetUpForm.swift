@@ -46,7 +46,7 @@ struct CreateMeetUpForm: View {
                 dM.currentUser.addMeetUp(mu: mu)
                 dM.currentUser.addToMeetUpHosted()
                 if mu.getClubMeet() {
-                    var club = binding(for: mu.getHostClub()!)
+                    let club = binding(for: mu.getHostClub()!)
                     club.wrappedValue.addMeetUp(meetUp: mu)
                 }
                 showingAlert = true

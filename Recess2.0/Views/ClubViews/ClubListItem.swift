@@ -22,9 +22,11 @@ struct ClubListItem: View {
                     Text(club.getName())
                         .font(.title3)
                         .foregroundColor(.white)
+                        .padding([.top])
                     Text("Members: \(club.getMembers().count)")
                         .font(.subheadline)
                         .foregroundColor(.black)
+                        .padding([.bottom])
                 }
                 .padding()
             }
