@@ -13,13 +13,26 @@ struct Dashboard: View {
         NavigationStack {
             ScrollView(.vertical) {
                 VStack {
-                    Text("Hello, \(dM.currentUser.getName())").padding()
+                    HStack {
+                        VStack (alignment: .leading){
+                            Text("\(dM.currentUser.getName()),")
+                            Text("Good Morning")
+                                .font(.title)
+                                .padding([.bottom])
+                        }.padding([.leading])
+                        Spacer()
+                    }
+                    Divider().padding([.leading, .trailing])
                     Text("Your scheduled activities (\(dM.currentUser.getScheduledMeetUps().count))").padding([.top])
                     NavigationLink(destination: CreateMeetUpForm(), label: {
                         Text("Create Activity").padding([.bottom])
                     })
                     ForEach(dM.sortMeetUpsByDate(meetUps: dM.currentUser.getScheduledMeetUps())) { meetup in
                         MeetUpListItem(meetUp: binding(for: meetup))
+                    }
+                    Text("Your Clubs (\(dM.currentUser.getJoinedClubs().count))")
+                    ForEach(dM.currentUser.getJoinedClubs()) { club in
+                        ClubListItem(club: binding(for: club))
                     }
                 }
             }
@@ -40,5 +53,12 @@ extension Dashboard {
             fatalError("Meetup not found")
         }
         return $dM.meetUps[index]
+    }
+    
+    func binding(for club: Club) -> Binding<Club> {
+        guard let index = dM.clubs.firstIndex(of: club) else {
+            fatalError("Club not found")
+        }
+        return $dM.clubs[index]
     }
 }

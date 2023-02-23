@@ -13,23 +13,16 @@ struct MeetUpDetail: View {
     
     var body: some View {
         VStack {
-            Text("\(meetUp.getSport()) Meet Up").font(.title)
-            Text("Host: \(meetUp.getHost().getName())").font(.subheadline)
-            HStack {
-                Text(meetUp.getDate().formatted())
-                Spacer()
-                if meetUp.getGearNeeded() {
-                    Text("Gear Needed")
-                } else {
-                    Text("No Gear Needed")
-                }
-            }
-            .padding()
-            Divider().padding([.leading, .trailing])
+            DetailHeader(title: "\(meetUp.getSport()) Meet Up",
+                         footer: "Host: \(meetUp.getHost().getName())",
+                         note: meetUp.getDate().formatted(),
+                         truestring: "Gear Needed",
+                         falsestring: "No Gear Needed",
+                         ifBool: meetUp.getGearNeeded())
             Text(meetUp.getAbout()).padding()
             Text("Players Going (\(meetUp.getPlayers().count))")
             ForEach(meetUp.getPlayers()) { player in
-                Text(player.getName())
+                PlayerListItem(player: player)
             }
             Spacer()
             JoinMeetUpButton(meetUp: $meetUp)
@@ -41,5 +34,14 @@ struct MeetUpDetail: View {
 struct MeetUpDetail_Previews: PreviewProvider {
     static var previews: some View {
         MeetUpDetail(meetUp: .constant(DataManager().meetUps[0])).environmentObject(DataManager())
+    }
+}
+
+extension MeetUpDetail {
+    func binding(for player: User) -> Binding<User> {
+        guard let index = dM.users.firstIndex(of: player) else {
+            fatalError("Meetup not found")
+        }
+        return $dM.users[index]
     }
 }

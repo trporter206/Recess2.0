@@ -90,7 +90,6 @@ struct Club: Identifiable, Hashable {
     static func == (lhs: Club, rhs: Club) -> Bool {
             return lhs.id == rhs.id
     }
-
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

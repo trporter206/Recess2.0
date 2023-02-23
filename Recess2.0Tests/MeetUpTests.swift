@@ -16,7 +16,7 @@ final class MeetUpTests: XCTestCase {
     override func setUp() {
         p1 = User(name: "Torri", city: "Vancouver")
         p2 = User(name: "Alison", city: "Seattle")
-        mu = MeetUp(host: p1, sport: "Basketball", about: "Pick up game", date: Date.now,  gearNeeded: true)
+        mu = MeetUp(host: p1, sport: "Basketball", about: "Pick up game", date: Date.now,  gearNeeded: true, clubMeet: false)
     }
 
     override func tearDown()  {
@@ -42,7 +42,7 @@ final class MeetUpTests: XCTestCase {
     
     func testAddMeetUp() {
         XCTAssertEqual(0, p1.getScheduledMeetUps().count)
-        let mu2 = MeetUp(host: p2, sport: "Tennis", about: "Tennis sessoon", date: Date.now, gearNeeded: true)
+        let mu2 = MeetUp(host: p2, sport: "Tennis", about: "Tennis sessoon", date: Date.now, gearNeeded: true, clubMeet: false)
         p1.addMeetUp(mu: mu2)
         p1.addToMeetUpsJoined()
         XCTAssertEqual(1, p1.getScheduledMeetUps().count)
@@ -50,7 +50,7 @@ final class MeetUpTests: XCTestCase {
     }
     
     func testRemoveMeetUp() {
-        let mu2 = MeetUp(host: p2, sport: "Tennis", about: "Tennis sessoon", date: Date.now, gearNeeded: true)
+        let mu2 = MeetUp(host: p2, sport: "Tennis", about: "Tennis sessoon", date: Date.now, gearNeeded: true, clubMeet: false)
         XCTAssertEqual(0, p1.getScheduledMeetUps().count)
         p1.addMeetUp(mu: mu2)
         p1.addToMeetUpsJoined()

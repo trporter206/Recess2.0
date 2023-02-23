@@ -13,18 +13,12 @@ struct ClubDetail: View {
     
     var body: some View {
         VStack {
-            Text(club.getName())
-                .font(.title)
-            Text(club.getDescription()).font(.subheadline)
-            HStack {
-                Text("Creator: \(club.getCreator().getName())")
-                Spacer()
-                if club.getPrivateClub() {
-                    Text("Private Club")
-                } else {
-                    Text("Public Club")
-                }
-            }
+            DetailHeader(title: club.getName(),
+                         footer: club.getDescription(),
+                         note: "Creator: \(club.getCreator().getName())",
+                         truestring: "Private Club",
+                         falsestring: "Public Club",
+                         ifBool: club.getPrivateClub())
             .padding()
             if club.getPreReqsNeeded() {
                 Text("Pre-Reqs")

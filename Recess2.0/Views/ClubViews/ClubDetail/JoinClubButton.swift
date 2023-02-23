@@ -10,6 +10,8 @@ import SwiftUI
 struct JoinClubButton: View {
     @EnvironmentObject var dM: DataManager
     @Binding var club: Club
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         if club.getCreator().getName() != dM.currentUser.getName() {
             if club.getMembers().contains(where: {$0.getID() == dM.currentUser.getID()}) {
@@ -20,6 +22,7 @@ struct JoinClubButton: View {
                     } catch {
                         print(error)
                     }
+                    self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Text("Leave Club")
                 })

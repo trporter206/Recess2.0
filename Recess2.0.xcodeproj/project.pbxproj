@@ -30,6 +30,9 @@
 		D778323B29A71EC000459776 /* ClubDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778323A29A71EC000459776 /* ClubDetail.swift */; };
 		D778323D29A71EE300459776 /* JoinClubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778323C29A71EE300459776 /* JoinClubButton.swift */; };
 		D778323F29A727F400459776 /* JoinMeetUpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778323E29A727F400459776 /* JoinMeetUpButton.swift */; };
+		D778324129A7393E00459776 /* DetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778324029A7393E00459776 /* DetailHeader.swift */; };
+		D778324329A73C7600459776 /* PlayerProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778324229A73C7600459776 /* PlayerProfile.swift */; };
+		D778324629A7462100459776 /* PlayerListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778324529A7462100459776 /* PlayerListItem.swift */; };
 		D77B617C29A0550D008B80F2 /* Exceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617B29A0550D008B80F2 /* Exceptions.swift */; };
 		D77B617F29A16A8F008B80F2 /* ClubListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617E29A16A8F008B80F2 /* ClubListItem.swift */; };
 		D77B618029A16A8F008B80F2 /* ClubListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B617E29A16A8F008B80F2 /* ClubListItem.swift */; };
@@ -91,6 +94,9 @@
 		D778323A29A71EC000459776 /* ClubDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetail.swift; sourceTree = "<group>"; };
 		D778323C29A71EE300459776 /* JoinClubButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinClubButton.swift; sourceTree = "<group>"; };
 		D778323E29A727F400459776 /* JoinMeetUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinMeetUpButton.swift; sourceTree = "<group>"; };
+		D778324029A7393E00459776 /* DetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeader.swift; sourceTree = "<group>"; };
+		D778324229A73C7600459776 /* PlayerProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProfile.swift; sourceTree = "<group>"; };
+		D778324529A7462100459776 /* PlayerListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListItem.swift; sourceTree = "<group>"; };
 		D77B617B29A0550D008B80F2 /* Exceptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exceptions.swift; sourceTree = "<group>"; };
 		D77B617E29A16A8F008B80F2 /* ClubListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListItem.swift; sourceTree = "<group>"; };
 		D7CD03BB2994AC0B0030A394 /* MeetUpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpTests.swift; sourceTree = "<group>"; };
@@ -244,6 +250,15 @@
 			path = ClubDetail;
 			sourceTree = "<group>";
 		};
+		D778324429A745F900459776 /* PlayerViews */ = {
+			isa = PBXGroup;
+			children = (
+				D778324229A73C7600459776 /* PlayerProfile.swift */,
+				D778324529A7462100459776 /* PlayerListItem.swift */,
+			);
+			path = PlayerViews;
+			sourceTree = "<group>";
+		};
 		D77B617D29A16A53008B80F2 /* ClubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,11 +272,13 @@
 		D7CD03BF2995BD520030A394 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D778324429A745F900459776 /* PlayerViews */,
 				D74BA65A29A2AE5B00810C74 /* NavigationMenu.swift */,
 				D71FDD9029A4790A0001E943 /* RootViews */,
 				D71FDD8929A4640C0001E943 /* MeetUpViews */,
 				D71FDD8829A463CD0001E943 /* CreationForms */,
 				D77B617D29A16A53008B80F2 /* ClubViews */,
+				D778324029A7393E00459776 /* DetailHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -427,8 +444,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D71FDD8F29A477B00001E943 /* MeetUpListItem.swift in Sources */,
+				D778324129A7393E00459776 /* DetailHeader.swift in Sources */,
 				D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */,
 				D74BA65F29A2B5F900810C74 /* MeetUpDetail.swift in Sources */,
+				D778324629A7462100459776 /* PlayerListItem.swift in Sources */,
+				D778324329A73C7600459776 /* PlayerProfile.swift in Sources */,
 				D77B617C29A0550D008B80F2 /* Exceptions.swift in Sources */,
 				D71FDD8B29A464B10001E943 /* MeetUpList.swift in Sources */,
 				D738AB982992DC2D00D6024E /* ContentView.swift in Sources */,
