@@ -7,36 +7,56 @@
 
 import Foundation
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class DataManager: ObservableObject {
     @Published var clubs = [Club]()
     @Published var meetUps = [MeetUp]()
     @Published var users = [User]()
-    @Published var currentUser: User
+    @Published var currentUser = User(name: "temp", city: "temp")
+    let db = Firestore.firestore()
     
     init() {
-        var u0 = User(name: "Torri Porter", city: "Vancouver")
-        u0.setWins(wins: 2)
-        self.currentUser = u0
-        var u1 = User(name: "Alison Parker", city: "Seattle")
-        var u2 = User(name: "John Smith", city: "Portland")
-        var c0 = Club(creator: u0, name: "Sports Club", description: "Pick up games", privateClub: false, preReqsNeeded: false)
-        var c1 = Club(creator: u1, name: "Tennis Club", description: "classy tennis", privateClub: true, preReqsNeeded: false)
-        var c2 = Club(creator: u2, name: "Basketball Club", description: "street ball", privateClub: false, preReqsNeeded: true, reqWins: 1)
-        var m0 = MeetUp(host: u1, sport: "Soccer", about: "casual game", date: Date.now, gearNeeded: true, clubMeet: false)
-        var m1 = MeetUp(host: u1, sport: "Tennis", about: "serious training", date: Date.now + 1500000, gearNeeded: true, clubMeet: false)
-        var m2 = MeetUp(host: u2, sport: "Basketball", about: "street ball", date: Date.now + 2000000, gearNeeded: false, clubMeet: false)
+        getUsers()
+    }
+    
+    func getUsers() {
+        var user: User = User(name: "temp", city: "temp")
+        let playersRef = db.collection("Players")
         
-        clubs.append(c0)
-        clubs.append(c1)
-        clubs.append(c2)
-        users.append(u0)
-        users.append(u1)
-        users.append(u2)
-        meetUps.append(m0)
-        meetUps.append(m1)
-        meetUps.append(m2)
-
+        playersRef.document("TorriPorter").setData([
+            "id" : UUID().uuidString,
+            "name" : "Torri Porter",
+            "city" : "Vancouver",
+            "about" : "The best in town",
+            "joinedClubs" : [],
+            "scheduledMeetUps" : [],
+            "numHostedMeets" : 0,
+            "numJoinedMeets" : 0,
+            "wins" : 0,
+            "losses" : 0,
+            "tier" : 0
+        ])
+        
+        playersRef.getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                let documents = querySnapshot!.documents
+                self.users = documents.compactMap { doc in
+                    do {
+                        let data = try doc.data(as: User.self)
+                        self.currentUser = data
+                    } catch {
+                        print(error)
+                    }
+                    return nil
+                }
+            }
+        }
+        print("found current user \(user.getName())")
     }
     
     //TODO: test

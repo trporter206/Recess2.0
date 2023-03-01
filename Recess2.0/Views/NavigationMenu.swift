@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NavigationMenu: View {
     @EnvironmentObject var dM: DataManager
+    
     var body: some View {
         TabView {
             Dashboard()

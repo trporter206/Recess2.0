@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayerProfile: View {
-    @EnvironmentObject var dm: DataManager
+    @EnvironmentObject var dM: DataManager
     @Binding var player: User
     
     var body: some View {
@@ -18,7 +18,12 @@ struct PlayerProfile: View {
                          note: "Tier: \(player.getTier())",
                          truestring: player.getCity(),
                          falsestring: "",
-                         ifBool: {player.id != nil}())
+                         ifBool: true)
+            Text("Clubs Joined (\(player.getJoinedClubs().count))")
+            ForEach(player.getJoinedClubs()) { club in
+                ClubListItem(club: binding(for: club))
+            }
+            Spacer()
         }
     }
 }
@@ -26,5 +31,14 @@ struct PlayerProfile: View {
 struct PlayerProfile_Previews: PreviewProvider {
     static var previews: some View {
         PlayerProfile(player: .constant(DataManager().currentUser))
+    }
+}
+
+extension PlayerProfile {
+    func binding(for club: Club) -> Binding<Club> {
+        guard let index = dM.clubs.firstIndex(of: club) else {
+            fatalError("Club not found")
+        }
+        return $dM.clubs[index]
     }
 }

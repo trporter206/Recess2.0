@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Club: Identifiable, Hashable {
+struct Club: Identifiable, Hashable, Codable {
     var id: String
     private var creator: User
     private var name: String
