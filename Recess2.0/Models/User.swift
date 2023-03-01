@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct User: Hashable, Identifiable, Codable {
     var id: String
@@ -51,16 +54,24 @@ struct User: Hashable, Identifiable, Codable {
         self.joinedClubs.removeAll{$0.getName() == club.getName()}
     }
     
+    //TODO: change doc name to ID when appropriate
     //MODIFIES: this
     //EFFECTS: increment number of meet ups joined
     mutating func addToMeetUpsJoined() {
-        self.numJoinedMeets += 1
+        let userRef = Firestore.firestore().collection("Players").document("TorriPorter")
+        userRef.updateData([
+            "numJoinedMeets" : FieldValue.increment(Int64(1))
+        ])
     }
     
+    //TODO: change doc name to ID when appropriate
     //MODIFIES: this
     //EFFECTS: increment number of meet ups hosted
     mutating func addToMeetUpHosted() {
-        self.numHostedMeets += 1
+        let userRef = Firestore.firestore().collection("Players").document("TorriPorter")
+        userRef.updateData([
+            "numHostedMeets" : FieldValue.increment(Int64(1))
+        ])
     }
     
     //MODIFIES: this

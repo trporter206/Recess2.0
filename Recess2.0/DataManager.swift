@@ -19,44 +19,18 @@ class DataManager: ObservableObject {
     let db = Firestore.firestore()
     
     init() {
-        getUsers()
+        getCurrentUser()
     }
     
-    func getUsers() {
-        var user: User = User(name: "temp", city: "temp")
-        let playersRef = db.collection("Players")
-        
-        playersRef.document("TorriPorter").setData([
-            "id" : UUID().uuidString,
-            "name" : "Torri Porter",
-            "city" : "Vancouver",
-            "about" : "The best in town",
-            "joinedClubs" : [],
-            "scheduledMeetUps" : [],
-            "numHostedMeets" : 0,
-            "numJoinedMeets" : 0,
-            "wins" : 0,
-            "losses" : 0,
-            "tier" : 0
-        ])
-        
-        playersRef.getDocuments() { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else {
-                let documents = querySnapshot!.documents
-                self.users = documents.compactMap { doc in
-                    do {
-                        let data = try doc.data(as: User.self)
-                        self.currentUser = data
-                    } catch {
-                        print(error)
-                    }
-                    return nil
-                }
+    func getCurrentUser() {
+        let playerRef = db.collection("Players")
+        playerRef.document("TorriPorter").addSnapshotListener { documentSnapshot, error in
+            do {
+                self.currentUser = try documentSnapshot!.data(as: User.self)
+            } catch {
+                print(error)
             }
         }
-        print("found current user \(user.getName())")
     }
     
     //TODO: test
