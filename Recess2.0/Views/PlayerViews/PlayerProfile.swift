@@ -10,6 +10,7 @@ import SwiftUI
 struct PlayerProfile: View {
     @EnvironmentObject var dM: DataManager
     @Binding var player: User
+    @State var joinedClubs = Array<Club>()
     
     var body: some View {
         VStack {
@@ -19,11 +20,15 @@ struct PlayerProfile: View {
                          truestring: player.getCity(),
                          falsestring: "",
                          ifBool: true)
-            Text("Clubs Joined (\(player.getJoinedClubs().count))")
-            ForEach(player.getJoinedClubs()) { club in
+            Text("Clubs Joined (\(player.getNumJoinedClubs()))")
+            ForEach(joinedClubs, id: \.self) { club in
                 ClubListItem(club: binding(for: club))
             }
             Spacer()
+        }.onAppear {
+            Task {
+                joinedClubs = await player.getJoinedClubs()
+            }
         }
     }
 }

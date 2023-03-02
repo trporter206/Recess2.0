@@ -11,20 +11,21 @@ struct CreateMeetUpForm: View {
     @EnvironmentObject var dM: DataManager
     @State private var newMeetUpData = MeetUp.Data()
     @State private var showingAlert = false
+    @State var joinedClubs = Array<Club>()
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
             Text("Create New Activity")
                 .padding()
-            if dM.currentUser.getJoinedClubs().count > 0 {
+            if dM.currentUser.getNumJoinedClubs() > 0 {
                 Toggle("Club meet up?", isOn: $newMeetUpData.clubMeet)
                     .toggleStyle(.switch)
                     .padding()
                 if newMeetUpData.clubMeet {
                     Text("Host Club")
                     Picker("Host Club", selection: $newMeetUpData.hostClub) {
-                        ForEach(dM.currentUser.getJoinedClubs()) { club in
+                        ForEach(joinedClubs, id: \.self) { club in
                             Text(club.getName()).tag(club as Club?)
                         }
                     }
@@ -59,6 +60,11 @@ struct CreateMeetUpForm: View {
             }
         }
         .padding()
+        .onAppear {
+            Task {
+                joinedClubs = await dM.currentUser.getJoinedClubs()
+            }
+        }
     }
 }
 

@@ -38,6 +38,9 @@ struct CreateClubForm: View {
                     "reqWins": newClubData.reqWins,
                     "clubRef" : Firestore.firestore().collection("Clubs").document(newID)
                 ])
+                Firestore.firestore().collection("Players").document(dM.currentUser.getID()).updateData([
+                    "createdClubs" : FieldValue.arrayUnion([newID])
+                ])
                 dM.getClubs()
                 showingAlert = true
                 self.presentationMode.wrappedValue.dismiss()

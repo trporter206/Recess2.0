@@ -15,7 +15,8 @@ struct User: Hashable, Identifiable, Codable {
     private var name: String
     private var city: String
     private var about: String
-    private var joinedClubs: Array<Club>
+    private var joinedClubs: Array<String>
+    private var createdClubs: Array<String>
     private var numHostedMeets: Int
     private var numJoinedMeets: Int
     private var scheduledMeetUps: Array<MeetUp>
@@ -30,35 +31,45 @@ struct User: Hashable, Identifiable, Codable {
         self.city = city
         self.about = ""
         self.joinedClubs = []
+        self.createdClubs = []
         self.scheduledMeetUps = []
         self.numHostedMeets = 0
         self.numJoinedMeets = 0
         self.wins = 0
         self.losses = 0
         self.tier = 0
-        //TODO: document tag to ID
         self.userRef = Firestore.firestore().collection("Players").document(id)
     }
     
     //METHODS====================================
     
+    //TODO: test
+    //EFFECTS: return number of joined clubs
+    func getNumJoinedClubs() -> Int {
+        return self.joinedClubs.count
+    }
+    
+    //TODO: test
+    //EFFECTS: return number of created clubs
+    func getNumCreatedClubs() -> Int {
+        return self.createdClubs.count
+    }
+    
     //MODIFIES: this
     //EFFECTS: if request is accepted, club added to clubs list
     mutating func joinClub(club: Club) {
-//        self.joinedClubs.append(club)
         userRef.updateData([
             "joinedClubs" : FieldValue.arrayUnion(["\(club.getID())"])
         ])
-        
     }
     
     //MODIFIES: this
     //EFFECTS: remove club from currentClubs
     mutating func leaveClub(club: Club) throws {
-        if !self.joinedClubs.contains(where: {$0.getName() == club.getName()}) {
+        if !self.joinedClubs.contains(where: {$0 == club.getID()}) {
             throw RecessExceptions.clubNotFound
         }
-        self.joinedClubs.removeAll{$0.getName() == club.getName()}
+        self.joinedClubs.removeAll{$0 == club.getID()}
     }
     
     //TODO: change doc name to ID when appropriate
@@ -105,7 +116,25 @@ struct User: Hashable, Identifiable, Codable {
     
     func getAbout() -> String { return self.about }
     
-    func getJoinedClubs() -> Array<Club> { return self.joinedClubs }
+    func getJoinedClubs() async -> Array<Club> {
+        var clubData = Array<Club>()
+        for clubID in self.joinedClubs {
+            let clubRef = Firestore.firestore().collection("Clubs").document(clubID)
+            let club = try! await clubRef.getDocument(as: Club.self)
+            clubData.append(club)
+        }
+        return clubData
+    }
+    
+    func getCreatedClubs() async -> Array<Club> {
+        var clubData = Array<Club>()
+        for clubID in self.createdClubs {
+            let clubRef = Firestore.firestore().collection("Clubs").document(clubID)
+            let club = try! await clubRef.getDocument(as: Club.self)
+            clubData.append(club)
+        }
+        return clubData
+    }
     
     func getNumHostedMeets() -> Int { return self.numHostedMeets }
     
@@ -128,7 +157,7 @@ struct User: Hashable, Identifiable, Codable {
     
     mutating func setAbout(about: String) { self.about = about }
     
-    mutating func setJoinedClubs(clubs: Array<Club>) { self.joinedClubs = clubs }
+    mutating func setJoinedClubs(clubs: Array<String>) { self.joinedClubs = clubs }
     
     mutating func setNumHostedMeets(num: Int) { self.numHostedMeets = num }
     
