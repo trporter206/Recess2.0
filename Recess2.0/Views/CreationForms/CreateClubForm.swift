@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct CreateClubForm: View {
     @EnvironmentObject var dM: DataManager
-    @State private var newClubData = Club.Data()
+    @State private var newClubData = Club.Data(id: UUID().uuidString)
     @State private var showingAlert = false
     @Environment(\.presentationMode) var presentationMode
     
@@ -51,7 +54,9 @@ struct CreateClubForm: View {
             }
             Toggle("Club is private", isOn: $newClubData.privateClub).toggleStyle(.switch).padding()
             Button(action: {
-                let c = Club(creator: dM.currentUser,
+                let newID = UUID().uuidString
+                let c = Club( id: newID,
+                             creator: dM.currentUser,
                              name: newClubData.name,
                              description: newClubData.description,
                              privateClub: newClubData.privateClub,
@@ -60,7 +65,19 @@ struct CreateClubForm: View {
                              reqJoined: newClubData.reqJoined,
                              reqTier: newClubData.reqTier,
                              reqWins: newClubData.reqWins)
-                dM.clubs.append(c)
+//                dM.clubs.append(c)
+                Firestore.firestore().collection("Clubs").document("\(newID)").setData([
+                    "id": newID,
+                    "creator": dM.currentUser.getID(),
+                    "name": newClubData.name,
+                    "description": newClubData.description,
+                    "privateClub": newClubData.privateClub,
+                    "preReqsNeeded": newClubData.preReqsNeeded,
+                    "reqHosted": newClubData.reqHosted,
+                    "reqJoined": newClubData.reqJoined,
+                    "reqTier": newClubData.reqTier,
+                    "reqWins": newClubData.reqWins
+                ])
                 showingAlert = true
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {

@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct Club: Identifiable, Hashable, Codable {
     var id: String
@@ -20,6 +23,7 @@ struct Club: Identifiable, Hashable, Codable {
     private var privateClub: Bool
     private var members: Array<User>
     private var scheduledGames: Array<MeetUp>
+    private var clubRef: DocumentReference
     
     init(id: String = UUID().uuidString, creator: User, name: String, description: String, privateClub: Bool, preReqsNeeded: Bool, reqHosted: Int = 0, reqJoined: Int = 0, reqTier: Int = 0, reqWins: Int = 0) {
         self.id = id
@@ -34,6 +38,7 @@ struct Club: Identifiable, Hashable, Codable {
         self.privateClub = privateClub
         self.members = [creator]
         self.scheduledGames = []
+        self.clubRef = Firestore.firestore().collection("Clubs").document("\(id)")
     }
     
     //METHODS=================================
@@ -59,7 +64,10 @@ struct Club: Identifiable, Hashable, Codable {
     //MODIFIES: this
     //EFFECTS: add given user to members if accepted, remove from requests either way
     mutating func addMember(user: User) throws {
-        self.members.append(user)
+        clubRef.updateData([
+            "members" : FieldValue.arrayUnion(["\(user.getID())"])
+        ])
+
     }
     
     //MODIFIES: this
@@ -117,6 +125,8 @@ struct Club: Identifiable, Hashable, Codable {
     mutating func setScheduledGames(games: Array<MeetUp>) { self.scheduledGames = games }
     
     //GETTERS=================================
+    func getID() -> String { return self.id }
+    
     func getCreator() -> User { return self.creator }
     
     func getName() -> String { return self.name }
@@ -142,6 +152,10 @@ struct Club: Identifiable, Hashable, Codable {
 
 extension Club {
     struct Data {
+        init(id: String){
+            self.clubRef = Firestore.firestore().collection("Clubs").document("\(id)")
+        }
+        var clubRef: DocumentReference
         var name: String = ""
         var description: String = ""
         var reqHosted: Int = 0
@@ -176,5 +190,6 @@ extension Club {
         privateClub = data.privateClub
         members = []
         scheduledGames = []
+        clubRef = data.clubRef
     }
 }

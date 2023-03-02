@@ -15,7 +15,7 @@ class DataManager: ObservableObject {
     @Published var clubs = [Club]()
     @Published var meetUps = [MeetUp]()
     @Published var users = [User]()
-    @Published var currentUser = User(name: "temp", city: "temp")
+    @Published var currentUser = User(id: UUID().uuidString, name: "temp", city: "temp")
     let db = Firestore.firestore()
     
     init() {

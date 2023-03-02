@@ -22,8 +22,9 @@ struct User: Hashable, Identifiable, Codable {
     private var wins: Int
     private var losses: Int
     private var tier: Int
+    private var userRef: DocumentReference
     
-    init(id: String = UUID().uuidString, name: String, city: String) {
+    init(id: String, name: String, city: String) {
         self.id = id
         self.name = name
         self.city = city
@@ -35,14 +36,20 @@ struct User: Hashable, Identifiable, Codable {
         self.wins = 0
         self.losses = 0
         self.tier = 0
+        //TODO: document tag to ID
+        self.userRef = Firestore.firestore().collection("Players").document("TorriPorter")
     }
     
-    //METHODS==========================
+    //METHODS====================================
     
     //MODIFIES: this
     //EFFECTS: if request is accepted, club added to clubs list
     mutating func joinClub(club: Club) {
-        self.joinedClubs.append(club)
+//        self.joinedClubs.append(club)
+        userRef.updateData([
+            "joinedClubs" : FieldValue.arrayUnion(["\(club.getID())"])
+        ])
+        
     }
     
     //MODIFIES: this
@@ -89,16 +96,7 @@ struct User: Hashable, Identifiable, Codable {
         self.scheduledMeetUps.append(mu)
     }
     
-    //EFFECTS: for Hashability
-    static func == (lhs: User, rhs: User) -> Bool {
-            return lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    //GETTERS==========================
+    //GETTERS======================================================================================
     func getID() -> String { return self.id }
     
     func getName() -> String { return self.name }
@@ -121,7 +119,7 @@ struct User: Hashable, Identifiable, Codable {
     
     func getTier() -> Int { return self.tier }
     
-    //SETTERS=====================================
+    //SETTERS====================================
     mutating func setName(name: String) { self.name = name }
     
     mutating func setCity(city: String) { self.city = city }
@@ -137,4 +135,14 @@ struct User: Hashable, Identifiable, Codable {
     mutating func setScheduledMeetUps(meetups: Array<MeetUp>) { self.scheduledMeetUps = meetups }
     
     mutating func setWins(wins: Int) { self.wins = wins }
+    
+    //HASHABILITY================================
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+            return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
