@@ -26,7 +26,7 @@ class DataManager: ObservableObject {
     func getCurrentUser() {
         let playerRef = db.collection("Players")
         
-        playerRef.document("AAC32BD5-73FE-496F-BFD2-139B0E200204").addSnapshotListener { documentSnapshot, error in
+        playerRef.document("402E8C70-E7E1-4627-91F7-DEA1BA7B441D").addSnapshotListener { documentSnapshot, error in
             do {
                 self.currentUser = try documentSnapshot!.data(as: User.self)
             } catch {

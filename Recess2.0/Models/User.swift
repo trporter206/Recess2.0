@@ -69,7 +69,9 @@ struct User: Hashable, Identifiable, Codable {
         if !self.joinedClubs.contains(where: {$0 == club.getID()}) {
             throw RecessExceptions.clubNotFound
         }
-        self.joinedClubs.removeAll{$0 == club.getID()}
+        userRef.updateData([
+            "joinedClubs" : FieldValue.arrayRemove(["\(club.getID())"])
+        ])
     }
     
     //TODO: change doc name to ID when appropriate

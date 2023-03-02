@@ -81,7 +81,9 @@ struct Club: Identifiable, Hashable, Codable {
         if !members.contains(where: {$0 == userID}) {
             throw RecessExceptions.userNotInClub
         }
-        self.members.removeAll{$0 == userID}
+        clubRef.updateData([
+            "members" : FieldValue.arrayRemove([userID])
+        ])
     }
     
     //MODIFIES: this

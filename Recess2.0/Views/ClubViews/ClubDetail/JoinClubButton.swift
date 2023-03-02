@@ -26,6 +26,7 @@ struct JoinClubButton: View {
                     } catch {
                         print(error)
                     }
+                    members.removeAll(where: {$0.getID() == dM.currentUser.getID()})
                     self.presentationMode.wrappedValue.dismiss()
                 }, label: {
                     Text("Leave Club")
