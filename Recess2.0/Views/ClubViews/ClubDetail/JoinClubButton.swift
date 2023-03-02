@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct JoinClubButton: View {
     @EnvironmentObject var dM: DataManager
@@ -35,6 +38,7 @@ struct JoinClubButton: View {
                         print(error)
                     }
                     dM.currentUser.joinClub(club: club)
+                    members.append(dM.currentUser)
                 }, label: {
                     Text("Join Club")
                 })

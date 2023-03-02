@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct ClubDetail: View {
     @EnvironmentObject var dM: DataManager
@@ -39,6 +42,14 @@ struct ClubDetail: View {
         }
         .padding()
         .onAppear {
+            let clubRef = Firestore.firestore().collection("Clubs")
+            clubRef.document(club.getID()).addSnapshotListener { documentSnapshot, error in
+                do {
+                    club = try documentSnapshot!.data(as: Club.self)
+                } catch {
+                    print(error)
+                }
+            }
             Task {
                 creator = await club.getCreator()
                 members = await club.getMembers()

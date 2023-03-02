@@ -73,7 +73,6 @@ struct Club: Identifiable, Hashable, Codable {
         clubRef.updateData([
             "members" : FieldValue.arrayUnion(["\(user.getID())"])
         ])
-
     }
     
     //MODIFIES: this
