@@ -20,11 +20,13 @@ class DataManager: ObservableObject {
     
     init() {
         getCurrentUser()
+        getClubs()
     }
     
     func getCurrentUser() {
         let playerRef = db.collection("Players")
-        playerRef.document("TorriPorter").addSnapshotListener { documentSnapshot, error in
+        
+        playerRef.document("402E8C70-E7E1-4627-91F7-DEA1BA7B441D").addSnapshotListener { documentSnapshot, error in
             do {
                 self.currentUser = try documentSnapshot!.data(as: User.self)
             } catch {
@@ -33,22 +35,23 @@ class DataManager: ObservableObject {
         }
     }
     
-    //TODO: test
-    //EFFECTS: return users sorted by Tier Ranking
-    func rankByTier(users: Array<User>) -> Array<User> {
-        return users.sorted(by: {$0.getTier() > $1.getTier()})
-    }
-    
-    //TODO: test
-    //EFFECTS: return a filtered list of meet ups based on param
-    func filterMeetUpsBySport(meetUps: Array<MeetUp>, sport: String) -> Array<MeetUp> {
-        return meetUps.filter({$0.getSport() == sport})
-    }
-    
-    //TODO: test
-    //EFFECTS: returns clubs sorted by size
-    func sortClubsBySize(clubs: Array<Club>) -> Array<Club> {
-        return clubs.sorted(by: {$0.getMembers().count > $1.getMembers().count})
+    func getClubs() {
+        self.clubs = []
+        Firestore.firestore().collection("Clubs").getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print(error)
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let data = try document.data(as: Club.self)
+                        self.clubs.append(data)
+                    } catch {
+                        print(error)
+                    }
+            
+                }
+            }
+        }
     }
     
     //TODO: test

@@ -27,7 +27,7 @@ struct Dashboard: View {
                     NavigationLink(destination: CreateMeetUpForm(), label: {
                         Text("Create Activity").padding([.bottom])
                     })
-                    ForEach(dM.sortMeetUpsByDate(meetUps: dM.currentUser.getScheduledMeetUps())) { meetup in
+                    ForEach(dM.currentUser.getScheduledMeetUps()) { meetup in
                         MeetUpListItem(meetUp: binding(for: meetup))
                     }
                     Text("Your Clubs (\(dM.currentUser.getJoinedClubs().count))")

@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct ClubList: View {
     @EnvironmentObject var dM: DataManager

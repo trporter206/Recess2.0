@@ -37,7 +37,7 @@ struct User: Hashable, Identifiable, Codable {
         self.losses = 0
         self.tier = 0
         //TODO: document tag to ID
-        self.userRef = Firestore.firestore().collection("Players").document("TorriPorter")
+        self.userRef = Firestore.firestore().collection("Players").document(id)
     }
     
     //METHODS====================================
@@ -65,7 +65,7 @@ struct User: Hashable, Identifiable, Codable {
     //MODIFIES: this
     //EFFECTS: increment number of meet ups joined
     mutating func addToMeetUpsJoined() {
-        let userRef = Firestore.firestore().collection("Players").document("TorriPorter")
+        let userRef = Firestore.firestore().collection("Players").document(self.id)
         userRef.updateData([
             "numJoinedMeets" : FieldValue.increment(Int64(1))
         ])
@@ -75,7 +75,7 @@ struct User: Hashable, Identifiable, Codable {
     //MODIFIES: this
     //EFFECTS: increment number of meet ups hosted
     mutating func addToMeetUpHosted() {
-        let userRef = Firestore.firestore().collection("Players").document("TorriPorter")
+        let userRef = Firestore.firestore().collection("Players").document(self.id)
         userRef.updateData([
             "numHostedMeets" : FieldValue.increment(Int64(1))
         ])
@@ -118,6 +118,8 @@ struct User: Hashable, Identifiable, Codable {
     func getLosses() -> Int { return self.losses }
     
     func getTier() -> Int { return self.tier }
+    
+    func getUserRef() -> DocumentReference { return self.userRef }
     
     //SETTERS====================================
     mutating func setName(name: String) { self.name = name }

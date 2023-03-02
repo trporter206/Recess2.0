@@ -23,7 +23,7 @@ struct ClubListItem: View {
                         .font(.title3)
                         .foregroundColor(.white)
                         .padding([.top])
-                    Text("Members: \(club.getMembers().count)")
+                    Text("Members: \(club.getMemberCount())")
                         .font(.subheadline)
                         .foregroundColor(.black)
                         .padding([.bottom])

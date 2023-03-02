@@ -29,6 +29,7 @@
 		D738ABC52992DF2300D6024E /* MeetUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738ABC42992DF2300D6024E /* MeetUp.swift */; };
 		D738ABD62993531E00D6024E /* ClubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738ABD52993531E00D6024E /* ClubTests.swift */; };
 		D738ABDA29938F2200D6024E /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738ABD929938F2200D6024E /* UserTests.swift */; };
+		D742827B29B046C700F1E78C /* ClubFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = D742827A29B046C700F1E78C /* ClubFields.swift */; };
 		D74BA65B29A2AE5B00810C74 /* NavigationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA65A29A2AE5B00810C74 /* NavigationMenu.swift */; };
 		D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA65C29A2AFD700810C74 /* Dashboard.swift */; };
 		D74BA65F29A2B5F900810C74 /* MeetUpDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */; };
@@ -94,6 +95,7 @@
 		D738ABCC29934E0100D6024E /* ClubTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClubTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D738ABD52993531E00D6024E /* ClubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubTests.swift; sourceTree = "<group>"; };
 		D738ABD929938F2200D6024E /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
+		D742827A29B046C700F1E78C /* ClubFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubFields.swift; sourceTree = "<group>"; };
 		D74BA65A29A2AE5B00810C74 /* NavigationMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMenu.swift; sourceTree = "<group>"; };
 		D74BA65C29A2AFD700810C74 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		D74BA65E29A2B5F900810C74 /* MeetUpDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetUpDetail.swift; sourceTree = "<group>"; };
@@ -152,7 +154,7 @@
 		D71FDD8829A463CD0001E943 /* CreationForms */ = {
 			isa = PBXGroup;
 			children = (
-				D7CD03C22995C1650030A394 /* CreateClubForm.swift */,
+				D742827929B046B100F1E78C /* CreateClubForm */,
 				D74BA66029A2EA0D00810C74 /* CreateMeetUpForm.swift */,
 			);
 			path = CreationForms;
@@ -252,6 +254,15 @@
 				D77B617B29A0550D008B80F2 /* Exceptions.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D742827929B046B100F1E78C /* CreateClubForm */ = {
+			isa = PBXGroup;
+			children = (
+				D7CD03C22995C1650030A394 /* CreateClubForm.swift */,
+				D742827A29B046C700F1E78C /* ClubFields.swift */,
+			);
+			path = CreateClubForm;
 			sourceTree = "<group>";
 		};
 		D773529929A6EEFD00264DAD /* ClubDetail */ = {
@@ -467,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D742827B29B046C700F1E78C /* ClubFields.swift in Sources */,
 				D71FDD8F29A477B00001E943 /* MeetUpListItem.swift in Sources */,
 				D778324129A7393E00459776 /* DetailHeader.swift in Sources */,
 				D74BA65D29A2AFD700810C74 /* Dashboard.swift in Sources */,

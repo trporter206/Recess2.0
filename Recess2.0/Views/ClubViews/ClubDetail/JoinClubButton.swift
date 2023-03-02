@@ -10,14 +10,15 @@ import SwiftUI
 struct JoinClubButton: View {
     @EnvironmentObject var dM: DataManager
     @Binding var club: Club
+    @Binding var members: Array<User>
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        if club.getCreator().getName() != dM.currentUser.getName() {
-            if club.getMembers().contains(where: {$0.getID() == dM.currentUser.getID()}) {
+        VStack {
+            if members.contains(where: {$0.getID() == dM.currentUser.getID()}) {
                 Button(action: {
                     do {
-                        try club.removeMember(user: dM.currentUser)
+                        try club.removeMember(userID: dM.currentUser.getID())
                         try dM.currentUser.leaveClub(club: club)
                     } catch {
                         print(error)
@@ -44,6 +45,7 @@ struct JoinClubButton: View {
 
 struct JoinClubButton_Previews: PreviewProvider {
     static var previews: some View {
-        JoinClubButton(club: .constant(DataManager().clubs[0])).environmentObject(DataManager())
+        JoinClubButton(club: .constant(DataManager().clubs[0]),
+                       members: .constant([])).environmentObject(DataManager())
     }
 }

@@ -10,12 +10,14 @@ import SwiftUI
 struct ClubDetail: View {
     @EnvironmentObject var dM: DataManager
     @Binding var club: Club
+    @State var creator = User(id: "temp", name: "temp", city: "temp")
+    @State var members = Array<User>()
     
     var body: some View {
         VStack {
             DetailHeader(title: club.getName(),
                          footer: club.getDescription(),
-                         note: "Creator: \(club.getCreator().getName())",
+                         note: "Creator: \(creator.getName())",
                          truestring: "Private Club",
                          falsestring: "Public Club",
                          ifBool: club.getPrivateClub())
@@ -26,19 +28,28 @@ struct ClubDetail: View {
             } else {
                 Text("No pre-reqs needed").padding()
             }
-            Text("Members: \(club.getMembers().count)")
-            ForEach(club.getMembers(), id:\.self) { member in
+            Text("Members: \(members.count)")
+            ForEach(members, id:\.self) { member in
                 Text(member.getName())
             }
             Spacer()
-            JoinClubButton(club: $club)
+            if creator.getID() != dM.currentUser.getID() {
+                JoinClubButton(club: $club, members: $members)
+            }
         }
         .padding()
+        .onAppear {
+            Task {
+                creator = await club.getCreator()
+                members = await club.getMembers()
+            }
+        }
     }
 }
 
 struct ClubDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ClubDetail(club: .constant(DataManager().clubs[0])).environmentObject(DataManager())
+        ClubDetail(club: .constant(DataManager().clubs[0]),
+                   creator: DataManager().currentUser).environmentObject(DataManager())
     }
 }

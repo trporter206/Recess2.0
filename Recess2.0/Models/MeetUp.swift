@@ -18,7 +18,7 @@ struct MeetUp: Equatable, Hashable, Identifiable, Codable {
     private var clubMeet: Bool
     private var hostClub: Club?
     
-    init(id: String = UUID().uuidString, host: User, sport: String, about: String, date: Date, gearNeeded: Bool, clubMeet: Bool, hostClub: Club? = nil) {
+    init(id: String, host: User, sport: String, about: String, date: Date, gearNeeded: Bool, clubMeet: Bool, hostClub: Club? = nil) {
         self.id = id
         self.host = host
         self.sport = sport

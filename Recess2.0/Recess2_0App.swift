@@ -20,7 +20,7 @@ struct Recess2_0App: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationMenu().environmentObject(DataManager())
+            NavigationMenu().environmentObject(dataManager)
         }
     }
 }

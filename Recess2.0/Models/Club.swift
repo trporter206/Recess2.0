@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 
 struct Club: Identifiable, Hashable, Codable {
     var id: String
-    private var creator: User
+    private var creator: String
     private var name: String
     private var description: String
     private var preReqsNeeded: Bool
@@ -21,13 +21,14 @@ struct Club: Identifiable, Hashable, Codable {
     private var reqTier: Int
     private var reqWins: Int
     private var privateClub: Bool
-    private var members: Array<User>
+    private var members: Array<String>
     private var scheduledGames: Array<MeetUp>
     private var clubRef: DocumentReference
     
-    init(id: String = UUID().uuidString, creator: User, name: String, description: String, privateClub: Bool, preReqsNeeded: Bool, reqHosted: Int = 0, reqJoined: Int = 0, reqTier: Int = 0, reqWins: Int = 0) {
+    init(id: String, creator: String, name: String, description: String, privateClub: Bool, preReqsNeeded: Bool, reqHosted: Int = 0, reqJoined: Int = 0, reqTier: Int = 0, reqWins: Int = 0) {
         self.id = id
         self.creator = creator
+        self.members = [creator]
         self.name = name
         self.description = description
         self.reqTier = reqTier
@@ -36,12 +37,17 @@ struct Club: Identifiable, Hashable, Codable {
         self.reqJoined = reqJoined
         self.preReqsNeeded = preReqsNeeded
         self.privateClub = privateClub
-        self.members = [creator]
         self.scheduledGames = []
         self.clubRef = Firestore.firestore().collection("Clubs").document("\(id)")
     }
     
     //METHODS=================================
+    
+    //TODO: test
+    //EFFECTS: return number of members
+    func getMemberCount() -> Int {
+        return self.members.count
+    }
     
     //TODO: test
     //EFFECTS: determine if user meets reqs to join club
@@ -72,11 +78,11 @@ struct Club: Identifiable, Hashable, Codable {
     
     //MODIFIES: this
     //EFFECTS: remove player from members list
-    mutating func removeMember(user: User) throws {
-        if !members.contains(where: {$0.getID() == user.getID()}) {
+    mutating func removeMember(userID: String) throws {
+        if !members.contains(where: {$0 == userID}) {
             throw RecessExceptions.userNotInClub
         }
-        self.members.removeAll{$0.getID() == user.getID()}
+        self.members.removeAll{$0 == userID}
     }
     
     //MODIFIES: this
@@ -103,7 +109,7 @@ struct Club: Identifiable, Hashable, Codable {
     }
     
     //SETTERS================================
-    mutating func setCreator(creator: User) { self.creator = creator }
+    mutating func setCreator(creator: String) { self.creator = creator }
     
     mutating func setName(name: String) { self.name = name }
     
@@ -120,14 +126,17 @@ struct Club: Identifiable, Hashable, Codable {
     
     mutating func setPrivateClub(prvt: Bool) { self.privateClub = prvt }
     
-    mutating func setMembers(members: Array<User>) { self.members = members }
+    mutating func setMembers(members: Array<String>) { self.members = members }
     
     mutating func setScheduledGames(games: Array<MeetUp>) { self.scheduledGames = games }
     
     //GETTERS=================================
     func getID() -> String { return self.id }
     
-    func getCreator() -> User { return self.creator }
+    func getCreator() async -> User {
+        let creatorRef = Firestore.firestore().collection("Players")
+        return try! await creatorRef.document(self.creator).getDocument(as: User.self)
+    }
     
     func getName() -> String { return self.name }
     
@@ -145,7 +154,15 @@ struct Club: Identifiable, Hashable, Codable {
     
     func getPrivateClub() -> Bool { return self.privateClub }
     
-    func getMembers() -> Array<User> { return self.members }
+    func getMembers() async -> Array<User> {
+        var users = Array<User>()
+        for memberID in members {
+            let playerRef = Firestore.firestore().collection("Players")
+            let player = try! await playerRef.document(memberID).getDocument(as: User.self)
+            users.append(player)
+        }
+        return users
+    }
     
     func getScheduledGames() -> Array<MeetUp> { return self.scheduledGames }
 }
@@ -179,7 +196,7 @@ extension Club {
     
     init(data: Data, dataManager: DataManager) {
         id = UUID().uuidString
-        creator = dataManager.currentUser
+        creator = dataManager.currentUser.getID()
         name = data.name
         description = data.description
         reqWins = data.reqWins
