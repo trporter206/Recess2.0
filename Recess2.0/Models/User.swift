@@ -19,7 +19,7 @@ struct User: Hashable, Identifiable, Codable {
     private var createdClubs: Array<String>
     private var numHostedMeets: Int
     private var numJoinedMeets: Int
-    private var scheduledMeetUps: Array<MeetUp>
+    private var scheduledMeetUps: Array<String>
     private var wins: Int
     private var losses: Int
     private var tier: Int
@@ -42,6 +42,12 @@ struct User: Hashable, Identifiable, Codable {
     }
     
     //METHODS====================================
+    
+    //TODO: test
+    //EFFECTS: return number of meetups
+    func getNumMeetUps() -> Int {
+        return self.scheduledMeetUps.count
+    }
     
     //TODO: test
     //EFFECTS: return number of joined clubs
@@ -96,17 +102,21 @@ struct User: Hashable, Identifiable, Codable {
     
     //MODIFIES: this
     //EFFECTS: remove meet up from scheduled
-    mutating func removeMeetUp(mu: MeetUp) throws {
-        if !self.scheduledMeetUps.contains(where: {$0.getID() == mu.getID()}) {
+    mutating func removeMeetUp(muID: String) throws {
+        if !self.scheduledMeetUps.contains(where: {$0 == muID}) {
             throw RecessExceptions.meetUpNotFound
         }
-        self.scheduledMeetUps.removeAll{$0 == mu}
+        userRef.updateData([
+            "scheduledMeetUps" : FieldValue.arrayRemove([muID])
+        ])
     }
     
     //MODIFIES: this
     //EFFECTS: add meet up to scheduled
-    mutating func addMeetUp(mu: MeetUp) {
-        self.scheduledMeetUps.append(mu)
+    mutating func addMeetUp(muID: String) {
+        userRef.updateData([
+            "scheduledMeetUps" : FieldValue.arrayUnion([muID])
+        ])
     }
     
     //GETTERS======================================================================================
@@ -142,7 +152,19 @@ struct User: Hashable, Identifiable, Codable {
     
     func getNumJoinedMeets() -> Int { return self.numJoinedMeets }
     
-    func getScheduledMeetUps() -> Array<MeetUp> { return self.scheduledMeetUps }
+    func getScheduledMeetUps() async -> Array<MeetUp> {
+        var mus = Array<MeetUp>()
+        for mUID in scheduledMeetUps {
+            let muRef = Firestore.firestore().collection("MeetUps").document(mUID)
+            do {
+                let meetup = try await muRef.getDocument(as: MeetUp.self)
+                mus.append(meetup)
+            } catch {
+                print(error)
+            }
+        }
+        return mus
+    }
     
     func getWins() -> Int { return self.wins }
     
@@ -165,7 +187,7 @@ struct User: Hashable, Identifiable, Codable {
     
     mutating func setNumJoinedMeets(num: Int) { self.numJoinedMeets = num }
     
-    mutating func setScheduledMeetUps(meetups: Array<MeetUp>) { self.scheduledMeetUps = meetups }
+    mutating func setScheduledMeetUps(meetups: Array<String>) { self.scheduledMeetUps = meetups }
     
     mutating func setWins(wins: Int) { self.wins = wins }
     

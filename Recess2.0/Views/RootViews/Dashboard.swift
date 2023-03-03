@@ -10,6 +10,7 @@ import SwiftUI
 struct Dashboard: View {
     @EnvironmentObject var dM: DataManager
     @State var joinedClubs = Array<Club>()
+    @State var scheduledMeetUps = Array<MeetUp>()
     
     var body: some View {
         NavigationStack {
@@ -28,9 +29,9 @@ struct Dashboard: View {
                     NavigationLink(destination: CreateMeetUpForm(), label: {
                         Text("Create Activity").padding([.bottom])
                     })
-                    Text("Your scheduled activities (\(dM.currentUser.getScheduledMeetUps().count))").padding([.top])
-                    ForEach(dM.currentUser.getScheduledMeetUps()) { meetup in
-                        MeetUpListItem(meetUp: binding(for: meetup))
+                    Text("Your scheduled activities (\(dM.currentUser.getNumMeetUps()))").padding([.top])
+                    ForEach($scheduledMeetUps) { $meetup in
+                        MeetUpListItem(meetUp: $meetup)
                     }
                     Text("Your Joined Clubs (\(dM.currentUser.getNumJoinedClubs()))")
                     ForEach(joinedClubs) { club in
@@ -43,6 +44,7 @@ struct Dashboard: View {
         .onAppear {
             Task {
                 joinedClubs = await dM.currentUser.getJoinedClubs()
+                scheduledMeetUps = await dM.currentUser.getScheduledMeetUps()
             }
         }
     }

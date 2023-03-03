@@ -23,7 +23,7 @@ struct MeetUpListItem: View {
                         .font(.title3)
                         .foregroundColor(.black)
                         .padding([.top])
-                    Text("Players: \(meetUp.getPlayers().count)")
+                    Text("Players: \(meetUp.getNumPlayers())")
                         .font(.subheadline)
                         .foregroundColor(.black)
                     Text(meetUp.getDate().formatted(.dateTime))

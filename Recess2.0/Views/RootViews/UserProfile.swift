@@ -27,7 +27,7 @@ struct UserProfile: View {
                         ClubListItem(club: $club)
                     }
                     Text("# Activities joined: \(dM.currentUser.getNumJoinedMeets())")
-                    Text("# Activities scheduled: \(dM.currentUser.getScheduledMeetUps().count)")
+                    Text("# Activities scheduled: \(dM.currentUser.getNumJoinedMeets())")
                     Spacer()
                 }
             }

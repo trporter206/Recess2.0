@@ -16,7 +16,7 @@ struct MeetUpList: View {
                 Text("Create Activity").padding()
             })
             Text("Number of Activities: \(dM.meetUps.count)").bold().padding()
-            ForEach($dM.meetUps, id: \.self) { $meetup in
+            ForEach($dM.meetUps) { $meetup in
                 MeetUpListItem(meetUp: $meetup)
             }
         }

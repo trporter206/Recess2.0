@@ -21,6 +21,7 @@ class DataManager: ObservableObject {
     init() {
         getCurrentUser()
         getClubs()
+        getMeetUps()
     }
     
     func getCurrentUser() {
@@ -45,6 +46,25 @@ class DataManager: ObservableObject {
                     do {
                         let data = try document.data(as: Club.self)
                         self.clubs.append(data)
+                    } catch {
+                        print(error)
+                    }
+            
+                }
+            }
+        }
+    }
+    
+    func getMeetUps() {
+        self.clubs = []
+        Firestore.firestore().collection("MeetUps").getDocuments() { (querySnapshot, error) in
+            if let error = error {
+                print(error)
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let data = try document.data(as: MeetUp.self)
+                        self.meetUps.append(data)
                     } catch {
                         print(error)
                     }

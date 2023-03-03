@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct CreateMeetUpForm: View {
     @EnvironmentObject var dM: DataManager
@@ -42,14 +45,32 @@ struct CreateMeetUpForm: View {
                 .toggleStyle(.switch)
                 .padding()
             Button(action: {
-                let mu = MeetUp(data: newMeetUpData, dataManager: dM)
-                dM.meetUps.append(mu)
-                dM.currentUser.addMeetUp(mu: mu)
-                dM.currentUser.addToMeetUpHosted()
-                if mu.getClubMeet() {
-                    let club = binding(for: mu.getHostClub()!)
-                    club.wrappedValue.addMeetUp(meetUp: mu)
-                }
+//                let mu = MeetUp(data: newMeetUpData, dataManager: dM)
+//                dM.meetUps.append(mu)
+//                dM.currentUser.addMeetUp(mu: mu)
+//                dM.currentUser.addToMeetUpHosted()
+//                if mu.getClubMeet() {
+//                    let club = binding(for: mu.getHostClub()!)
+//                    club.wrappedValue.addMeetUp(meetUp: mu)
+//                }
+                let newID = UUID().uuidString
+                Firestore.firestore().collection("MeetUps").document(newID).setData([
+                    "id" : newID,
+                    "host" : dM.currentUser.getID(),
+                    "sport" : newMeetUpData.sport,
+                    "about" : newMeetUpData.about,
+                    "players" : [dM.currentUser.getID()],
+                    "date" : newMeetUpData.date,
+                    "gearNeeded" : newMeetUpData.gearNeeded,
+                    "clubMeet" : newMeetUpData.clubMeet,
+                    "hostClub" : newMeetUpData.hostClub ?? "",
+                    "meetUpRef" : Firestore.firestore().collection("MeetUps").document(newID)
+                    ])
+                Firestore.firestore().collection("Players").document(dM.currentUser.getID()).updateData([
+                    "scheduledMeetUps" : FieldValue.arrayUnion([newID]),
+                    "numHostedMeets" : FieldValue.increment(Int64(1))
+                ])
+                dM.getMeetUps()
                 showingAlert = true
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
